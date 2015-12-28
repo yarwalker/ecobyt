@@ -1,10 +1,11 @@
 # Copyright (C) 2015 YIThemes
 # This file is distributed under the same license as the YITH Plugin Starter package.
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Badge Management\n"
 "Report-Msgid-Bugs-To: Your Inspiration Themes <plugins@yithemes.com>\n"
-"POT-Creation-Date: 2015-06-19 17:17+0100\n"
+"POT-Creation-Date: 2015-12-18 11:17+0100\n"
 "PO-Revision-Date: 2015-06-19 17:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: Your Inspiration Themes <info@yithemes.com>\n"
@@ -12,13 +13,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.6\n"
+"X-Generator: Poedit 1.8.4\n"
 "X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;"
 "_nx_noop:1,2,3c;esc_attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;"
 "esc_html_x:1,2c\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-Basepath: ../\n"
+"X-Poedit-Basepath: ..\n"
 "X-Textdomain-Support: yes\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: ../plugin-fw\n"
@@ -77,15 +78,15 @@ msgstr ""
 msgid "Badge Options"
 msgstr ""
 
-#: class.yith-wcbm-admin.php:306
+#: class.yith-wcbm-admin.php:311
 msgid "Product Badge"
 msgstr ""
 
-#: class.yith-wcbm-admin.php:324
+#: class.yith-wcbm-admin.php:329
 msgid "Select Badge"
 msgstr ""
 
-#: class.yith-wcbm-admin.php:326
+#: class.yith-wcbm-admin.php:331
 msgid "none"
 msgstr ""
 
@@ -121,8 +122,7 @@ msgstr ""
 msgid "Size (pixel)"
 msgstr ""
 
-#: functions.yith-wcbm.php:88
-#: plugin-fw/templates/metaboxes/types/contactform.php:222
+#: functions.yith-wcbm.php:88 plugin-fw/templates/metaboxes/types/contactform.php:222
 #: plugin-fw/templates/metaboxes/types/contactform.php:409
 msgid "Width"
 msgstr ""
@@ -162,7 +162,7 @@ msgstr ""
 #: init.php:43
 msgid ""
 "YITH WooCommerce Badge Management is enabled but not effective. It requires "
-"Woocommerce in order to work."
+"WooCommerce in order to work."
 msgstr ""
 
 #: init.php:52
@@ -280,7 +280,8 @@ msgid "Type"
 msgstr ""
 
 #: plugin-fw/lib/yit-cpt-unlimited.php:1052
-msgid "Layout for this "
+#, php-format
+msgid "Layout for this %s"
 msgstr ""
 
 #: plugin-fw/lib/yit-cpt-unlimited.php:1058
@@ -360,10 +361,10 @@ msgid "Add %s from images"
 msgstr ""
 
 #: plugin-fw/lib/yit-cpt-unlimited.php:1633
-msgid "Add with multiupload"
+msgid "Upload multiple files"
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel-wc.php:295
+#: plugin-fw/lib/yit-plugin-panel-wc.php:336
 msgid "The changes you have made will be lost if you leave this page."
 msgstr ""
 
@@ -375,62 +376,62 @@ msgstr ""
 msgid "YIT Plugins"
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:293 plugin-fw/lib/yit-plugin-subpanel.php:143
+#: plugin-fw/lib/yit-plugin-panel.php:288 plugin-fw/lib/yit-plugin-subpanel.php:143
 #: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:5
 msgid "Save Changes"
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:296
+#: plugin-fw/lib/yit-plugin-panel.php:291
 #: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:8
 msgid "If you continue with this action, you will reset all options in this page."
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:298 plugin-fw/lib/yit-plugin-subpanel.php:148
-msgid "Reset to Default"
+#: plugin-fw/lib/yit-plugin-panel.php:293 plugin-fw/lib/yit-plugin-subpanel.php:148
+msgid "Reset to default"
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:298 plugin-fw/lib/yit-plugin-subpanel.php:148
-#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:10
+#: plugin-fw/lib/yit-plugin-panel.php:293 plugin-fw/lib/yit-plugin-subpanel.php:148
+#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:11
 msgid "Are you sure?"
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:432
+#: plugin-fw/lib/yit-plugin-panel.php:427
 msgid "The element you have entered already exists. Please, enter another name."
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:433
+#: plugin-fw/lib/yit-plugin-panel.php:428
 msgid "Settings saved"
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:434
+#: plugin-fw/lib/yit-plugin-panel.php:429
 msgid "Settings reset"
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:435
+#: plugin-fw/lib/yit-plugin-panel.php:430
 msgid "Element deleted correctly."
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:436 plugin-fw/lib/yit-plugin-panel.php:437
+#: plugin-fw/lib/yit-plugin-panel.php:431 plugin-fw/lib/yit-plugin-panel.php:432
 msgid "Element updated correctly."
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:438
+#: plugin-fw/lib/yit-plugin-panel.php:433
 msgid "Database imported correctly."
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:439
+#: plugin-fw/lib/yit-plugin-panel.php:434
 msgid "An error has occurred during import. Please try again."
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:440
+#: plugin-fw/lib/yit-plugin-panel.php:435
 msgid "The added file is not valid."
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:441
+#: plugin-fw/lib/yit-plugin-panel.php:436
 msgid "Sorry, import is disabled."
 msgstr ""
 
-#: plugin-fw/lib/yit-plugin-panel.php:442
+#: plugin-fw/lib/yit-plugin-panel.php:437
 msgid "Sorting successful."
 msgstr ""
 
@@ -493,26 +494,26 @@ msgstr ""
 msgid "Update now."
 msgstr ""
 
-#: plugin-fw/lib/yit-upgrade.php:230
+#: plugin-fw/lib/yit-upgrade.php:250
 msgid "Yithemes Repository"
 msgstr ""
 
-#: plugin-fw/lib/yit-upgrade.php:264
+#: plugin-fw/lib/yit-upgrade.php:284
 msgid "Invalid URL Provided."
 msgstr ""
 
-#: plugin-fw/lib/yit-upgrade.php:277
+#: plugin-fw/lib/yit-upgrade.php:297
 msgid "Could not create Temporary file."
 msgstr ""
 
-#: plugin-fw/lib/yit-upgrade.php:419
+#: plugin-fw/lib/yit-upgrade.php:439
 #, php-format
 msgid ""
 "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox yit-"
 "changelog-button\" title=\"%3$s\">View version %4$s details</a>."
 msgstr ""
 
-#: plugin-fw/lib/yit-upgrade.php:421
+#: plugin-fw/lib/yit-upgrade.php:441
 #, php-format
 msgid ""
 "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox yit-"
@@ -521,16 +522,16 @@ msgid ""
 "updates.</em>"
 msgstr ""
 
-#: plugin-fw/lib/yit-upgrade.php:423
+#: plugin-fw/lib/yit-upgrade.php:443
 #, php-format
 msgid ""
 "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox yit-"
 "changelog-button\" title=\"%3$s\">View version %4$s details</a>. <em>Automatic "
-"update is unavailable for this plugin, please <a href=\"%5$s\" title=\"Licence "
+"update is unavailable for this plugin, please <a href=\"%5$s\" title=\"License "
 "activation\">activate</a> your copy of %6s.</em>"
 msgstr ""
 
-#: plugin-fw/lib/yit-upgrade.php:425
+#: plugin-fw/lib/yit-upgrade.php:445
 #, php-format
 msgid ""
 "There is a new version of %1$s available. <a href=\"%2$s\" class=\"thickbox yit-"
@@ -538,173 +539,213 @@ msgid ""
 "\">update now</a>."
 msgstr ""
 
-#: plugin-fw/lib/yit-upgrade.php:498
+#: plugin-fw/lib/yit-upgrade.php:518
 msgid "You can't update the plugins for this site."
 msgstr ""
 
-#: plugin-fw/lib/yit-upgrade.php:502
+#: plugin-fw/lib/yit-upgrade.php:522
 msgid "You do not have sufficient permissions to update the plugins for this site."
 msgstr ""
 
-#: plugin-fw/lib/yit-upgrade.php:509
+#: plugin-fw/lib/yit-upgrade.php:529
 msgid "Update Plugin"
 msgstr ""
 
-#: plugin-fw/licence/lib/yit-licence.php:161
+#: plugin-fw/licence/lib/yit-licence.php:178
 #, php-format
 msgctxt "%s = field name"
 msgid "%s field cannot be empty"
 msgstr ""
 
-#: plugin-fw/licence/lib/yit-licence.php:162
+#: plugin-fw/licence/lib/yit-licence.php:179
 #, php-format
 msgid "%s and %s fields cannot be empty"
 msgstr ""
 
-#: plugin-fw/licence/lib/yit-licence.php:163
+#: plugin-fw/licence/lib/yit-licence.php:180
 msgid "Unable to contact the remote server, please try again later. Thanks!"
 msgstr ""
 
-#: plugin-fw/licence/lib/yit-licence.php:548
-msgid "Invalid Request"
-msgstr ""
-
-#: plugin-fw/licence/lib/yit-licence.php:549
-msgid "Invalid licence key"
-msgstr ""
-
-#: plugin-fw/licence/lib/yit-licence.php:550
-msgid "Software has been deactivated"
-msgstr ""
-
-#: plugin-fw/licence/lib/yit-licence.php:551
-msgid "Maximum number of activations exceeded"
-msgstr ""
-
-#: plugin-fw/licence/lib/yit-licence.php:552
-msgid "Invalid instance ID"
-msgstr ""
-
-#: plugin-fw/licence/lib/yit-licence.php:553
-msgid "Invalid security key"
-msgstr ""
-
-#: plugin-fw/licence/lib/yit-licence.php:554
-msgid "Licence key has expired"
-msgstr ""
-
-#: plugin-fw/licence/lib/yit-licence.php:555
-msgid "Licence key has been banned"
-msgstr ""
-
-#: plugin-fw/licence/lib/yit-plugin-licence.php:68
-#: plugin-fw/licence/lib/yit-plugin-licence.php:69
-#: plugin-fw/licence/lib/yit-theme-licence.php:64
-#: plugin-fw/licence/lib/yit-theme-licence.php:65
-#: plugin-fw/licence/lib/yit-theme-licence.php:107
-#: plugin-fw/licence/lib/yit-theme-licence.php:108
-msgid "Licence Activation"
-msgstr ""
-
-#: plugin-fw/licence/lib/yit-theme-licence.php:115
-#: plugin-fw/licence/lib/yit-theme-licence.php:116
-#, php-format
-msgid "%s"
-msgstr ""
-
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:19
-msgid "Yithemes Licence Activation"
-msgstr ""
-
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:23
-msgid ""
-"I cannot find the license key for activating the theme I have bought some time "
-"ago. Where can I find it?"
-msgstr ""
-
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:26
-msgid ""
-"If you have purchased one of our products before 27 January 2015, you can benefit "
-"from support and updates (the services offered with the license)\n"
-"            until 27 January 2016 and you do not have to purchase it again to get "
-"a new license key, because, before this date, your license used to be activated "
-"automatically by our system.\n"
-"            After 27 January 2016, instead, if you want to benefit from support "
-"and updates you have to buy a new license and activate it through the license key "
-"you will be\n"
-"            provided with and that you can find in your YIThemes account, in "
-"section \"My licenses\"."
-msgstr ""
-
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:37
-msgid ""
-"Have you updated your licenses? Have you asked for an extension? Update "
-"information concerning your products."
-msgstr ""
-
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:39
-msgid "Update licence information"
-msgstr ""
-
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:49
-msgid "Products to be activated"
-msgstr ""
-
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:68
-msgid "Activate"
-msgstr ""
-
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:87
-msgid "Activated"
-msgstr ""
-
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:91
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:123
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:147
-msgid "Product Name"
-msgstr ""
-
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:92
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:124
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:148
+#: plugin-fw/licence/lib/yit-licence.php:181
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:90
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:168
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:199
 #: plugin-fw/templates/metaboxes/types/contactform.php:148
 #: plugin-fw/templates/metaboxes/types/contactform.php:340
 msgid "Email"
 msgstr ""
 
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:93
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:125
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:149
-msgid "Licence Key"
+#: plugin-fw/licence/lib/yit-licence.php:182
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:91
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:169
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:200
+msgid "License Key"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:183
+msgid "Are you sure you want to deactivate the license for current site?"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:646
+msgid "Invalid Request"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:647
+msgid "Invalid license key"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:648
+msgid "Software has been deactivated"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:649
+msgid "Maximum number of activations exceeded"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:650
+msgid "Invalid instance ID"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:651
+msgid "Invalid security key"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:652
+msgid "License key has expired"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:653
+msgid "License key has been banned"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:654
+msgid "Current product is not included with your membership key"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:655
+msgid "Great"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:655
+msgid "License successfully activated"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-licence.php:656
+msgid "License key deactivated for website"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-plugin-licence.php:68
+#: plugin-fw/licence/lib/yit-plugin-licence.php:69
+#: plugin-fw/licence/lib/yit-theme-licence.php:70
+#: plugin-fw/licence/lib/yit-theme-licence.php:71
+#: plugin-fw/licence/lib/yit-theme-licence.php:110
+#: plugin-fw/licence/lib/yit-theme-licence.php:111
+msgid "License Activation"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-theme-licence.php:118
+#: plugin-fw/licence/lib/yit-theme-licence.php:119
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-theme-licence.php:160
+msgid ""
+"I cannot find the license key for activating the theme I have bought some time "
+"ago. Where can I find it?"
+msgstr ""
+
+#: plugin-fw/licence/lib/yit-theme-licence.php:163
+msgid ""
+"If you have purchased one of our products before 27 January 2015, you can benefit "
+"from support and updates (the services offered with the license)\n"
+"                    until 27 January 2016 and you do not have to purchase it again "
+"to get a new license key, because, before this date, your license used to be "
+"activated automatically by our system.\n"
+"                    After 27 January 2016, instead, if you want to benefit from "
+"support and updates you have to buy a new license and activate it through the "
+"license key you will be\n"
+"                    provided with and that you can find in your YIThemes account, "
+"in section \"My licenses\"."
+msgstr ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:23
+msgid "Yithemes License Activation"
+msgstr ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:29
+msgid ""
+"Have you updated your licenses? Have you asked for an extension? Update "
+"information concerning your products."
+msgstr ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:31
+msgid "Update license information"
+msgstr ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:44
+msgid "Product to activate"
+msgid_plural "Products to activate"
+msgstr[0] ""
+msgstr[1] ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:63
+msgid "Activate"
+msgstr ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:82
+msgid "Activated"
+msgstr ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:88
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:166
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:196
+msgid "Product Name"
 msgstr ""
 
 #: plugin-fw/licence/templates/panel/activation/activation-panel.php:94
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:150
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:203
 msgid "Expires"
 msgstr ""
 
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:95
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:97
 msgid "Remaining"
 msgstr ""
 
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:96
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:109
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:151
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:161
-msgid "Renew"
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:99
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:227
+msgid "Membership"
 msgstr ""
 
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:107
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:103
+msgid "License Actions"
+msgstr ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:128
 #, php-format
 msgid "%1s out of %2s"
 msgstr ""
 
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:119
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:144
+msgid "Deactivate"
+msgstr ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:149
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:206
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:227
+msgid "Renew"
+msgstr ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:162
 msgid "Banned"
 msgstr ""
 
-#: plugin-fw/licence/templates/panel/activation/activation-panel.php:143
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:192
 msgid "Expired"
+msgstr ""
+
+#: plugin-fw/licence/templates/panel/activation/activation-panel.php:227
+msgid "License"
 msgstr ""
 
 #: plugin-fw/templates/metaboxes/types/ajax-products.php:23
@@ -900,7 +941,7 @@ msgstr ""
 #: plugin-fw/templates/metaboxes/types/select-icon.php:33
 #: plugin-fw/templates/metaboxes/types/upload.php:21
 #: plugin-fw/templates/panel/types/upload.php:31
-#: plugin-fw/templates/panel/woocommerce/woocommerce-upload.php:35
+#: plugin-fw/templates/panel/woocommerce/woocommerce-upload.php:40
 msgid "Upload"
 msgstr ""
 
@@ -1064,7 +1105,7 @@ msgstr ""
 msgid "Italic bold"
 msgstr ""
 
-#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:10
+#: plugin-fw/templates/panel/woocommerce/woocommerce-form.php:11
 msgid "Reset Defaults"
 msgstr ""
 
@@ -1078,4 +1119,22 @@ msgstr ""
 
 #: plugin-options/settings-options.php:18
 msgid "Select to hide the default Woocommerce \"On sale\" badge."
+msgstr ""
+
+#: plugin-options/settings-options.php:24
+msgid "Hide in sidebars"
+msgstr ""
+
+#: plugin-options/settings-options.php:26
+msgid "Select to hide the badges in sidebars and widgets."
+msgstr ""
+
+#: plugin-options/settings-options.php:32
+msgid "Product Badge overrides default on sale badge"
+msgstr ""
+
+#: plugin-options/settings-options.php:34
+msgid ""
+"Select if you want to hide WooCommerce default \"On Sale\" badge when the product "
+"has another badge"
 msgstr ""

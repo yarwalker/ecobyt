@@ -392,6 +392,10 @@ if ( !class_exists( 'YWRR_Review_Reminder' ) ) {
          */
         public function ywrr_create_pages() {
 
+            if( get_option( 'ywrr_unsubscribe_page_id' ) ) {
+                return;
+            }
+
             if ( !function_exists( 'wc_create_page' ) ) {
                 return;
             }

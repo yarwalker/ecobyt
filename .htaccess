@@ -31,3 +31,9 @@ deny from env=stayout
 #Запрещаем перечисление пользователей
 RewriteCond %{QUERY_STRING} author=\d
 RewriteRule ^ /? [L,R=301]
+
+# protect wpconfig.php
+<files wp-config.php>
+    order allow,deny
+    deny from all
+</files>

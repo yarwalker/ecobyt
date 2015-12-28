@@ -380,11 +380,14 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
 
             $suborder_ids = self::get_suborder ( $parent_order_id );
             if ( ! empty( $suborder_ids ) ) {
+                remove_action( 'woocommerce_order_status_completed', 'wc_paying_customer' );
                 foreach ( $suborder_ids as $suborder_id ) {
                     /** @var $suborder WC_Order */
                     $suborder = wc_get_order ( $suborder_id );
                     $suborder->update_status ( $new_status, _x ( 'Update by admin: ', 'Order note', 'yith_wc_product_vendors' ) );
                 }
+                add_action( 'woocommerce_order_status_completed', 'wc_paying_customer' );
+
             }
         }
 
@@ -1619,7 +1622,7 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
          *
          * @return array
          * @author Lorenzo Giuffrida
-         * @since  1.0.0
+         * @since  1.6.0
          */
         public static function get_order_items_by_vendor ( $parent_order_id, $args = array () ) {
 

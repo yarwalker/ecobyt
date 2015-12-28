@@ -60,8 +60,10 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
                 add_action( 'admin_enqueue_scripts', array( $this, 'network_admin_enqueue_scripts' ) );
             }
 
-            if( defined( 'YIT_LICENCE_DEBUG' ) && YIT_LICENCE_DEBUG ){
-                $this->_package_url = 'http://dev.yithemes.com';                
+            $is_debug_enabled = defined( 'YIT_LICENCE_DEBUG' ) && YIT_LICENCE_DEBUG;
+            if ( $is_debug_enabled ) {
+                $this->_package_url = defined( 'YIT_LICENCE_DEBUG_LOCALHOST' ) ? YIT_LICENCE_DEBUG_LOCALHOST : 'http://dev.yithemes.com';
+                add_filter( 'block_local_requests', '__return_false' );
             }
         }
 
@@ -129,7 +131,7 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
             );
 
             foreach( $this->_plugins as $init => $info ){
-                YIT_Plugin_Licence()->check( $init );
+                YIT_Plugin_Licence()->check( $init, false );
 
                 $update_url[ $init ]    = wp_nonce_url( self_admin_url('update.php?action=upgrade-plugin-multisite&plugin=') . $init, 'upgrade-plugin-multisite_' . $init );
                 $changelog_id           = str_replace( array( '/', '.php', '.' ), array( '-', '', '-' ), $init );
@@ -158,7 +160,7 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
         }
 
         /**
-         * Call the protected method _upgrader_pre_download to retrive the zip package file
+         * Retrive the zip package file
          *
          * @param bool         $reply          Whether to bail without returning the package. Default false.
          * @param string       $package        The package file name.
@@ -171,25 +173,7 @@ if ( ! class_exists( 'YIT_Upgrade' ) ) {
          * @access  public
          * @author   Andrea Grillo <andrea.grillo@yithemes.com>
          */
-        public function upgrader_pre_download( $reply, $package, $upgrader ){
-            return $this->_upgrader_pre_download( $reply, $package, $upgrader );
-        }
-
-        /**
-         * Retrive the zip package file
-         *
-         * @param bool         $reply          Whether to bail without returning the package. Default false.
-         * @param string       $package        The package file name.
-         * @param \WP_Upgrader $upgrader       WP_Upgrader instance.
-         *
-         * @return string | The download file
-         *
-         * @since    1.0
-         * @see      wp-admin/includes/class-wp-upgrader.php
-         * @access  protected
-         * @author   Andrea Grillo <andrea.grillo@yithemes.com>
-         */
-        protected function _upgrader_pre_download( $reply, $package, $upgrader ) {
+        public function upgrader_pre_download( $reply, $package, $upgrader ) {
             $plugin = false;
             $is_bulk = $upgrader->skin instanceof Bulk_Plugin_Upgrader_Skin;
 

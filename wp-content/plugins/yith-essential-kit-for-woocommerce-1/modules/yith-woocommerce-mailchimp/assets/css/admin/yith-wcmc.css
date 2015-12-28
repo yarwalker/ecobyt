@@ -251,3 +251,12 @@ a.update-fields{
 #yith_wcmc_panel_export input[type="submit"]:not(.visible){
     display: none;
 }
+
+/* === PANEL WIDGET === */
+#yith_wcmc_panel_shortcode .forminp-textarea p,
+#yith_wcmc_panel_widget .forminp-textarea p{
+    font-size: 13px;
+    font-style: italic;
+
+    margin-bottom: 15px;
+}

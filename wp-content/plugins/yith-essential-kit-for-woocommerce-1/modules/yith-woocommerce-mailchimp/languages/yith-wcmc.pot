@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Mailchimp\n"
-"POT-Creation-Date: 2015-10-23 17:07+0100\n"
+"POT-Creation-Date: 2015-12-14 16:34+0100\n"
 "PO-Revision-Date: 2015-04-20 10:10+0100\n"
 "Last-Translator: \n"
 "Language-Team: Your Inspiration Themes <plugins@yithemes.com>\n"
@@ -18,52 +18,117 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: plugin-fw\n"
 
-#: includes/class.yith-wcmc-admin.php:79
+#: includes/class.yith-wcmc-admin.php:86
 msgid "Integration"
 msgstr ""
 
-#: includes/class.yith-wcmc-admin.php:80
+#: includes/class.yith-wcmc-admin.php:87
 msgid "Checkout"
 msgstr ""
 
-#: includes/class.yith-wcmc-admin.php:81
-#: includes/class.yith-wcmc-admin.php:215
+#: includes/class.yith-wcmc-admin.php:88
+#: includes/class.yith-wcmc-admin.php:222
 msgid "Premium Version"
 msgstr ""
 
-#: includes/class.yith-wcmc-admin.php:128
+#: includes/class.yith-wcmc-admin.php:135
 msgid "Update Lists"
 msgstr ""
 
-#: includes/class.yith-wcmc-admin.php:129
+#: includes/class.yith-wcmc-admin.php:136
 msgid "Update Groups"
 msgstr ""
 
-#: includes/class.yith-wcmc-admin.php:149
-#: includes/class.yith-wcmc-admin.php:150
+#: includes/class.yith-wcmc-admin.php:156
+#: includes/class.yith-wcmc-admin.php:157
 msgid "Mailchimp"
 msgstr ""
 
-#: includes/class.yith-wcmc-admin.php:211
+#: includes/class.yith-wcmc-admin.php:218
 msgid "Settings"
 msgstr ""
 
-#: includes/class.yith-wcmc-admin.php:233
+#: includes/class.yith-wcmc-admin.php:223
+msgid "Live Demo"
+msgstr ""
+
+#: includes/class.yith-wcmc-admin.php:241
 msgid "Plugin Documentation"
 msgstr ""
 
-#: includes/class.yith-wcmc.php:460
+#: includes/class.yith-wcmc.php:478
 #, php-format
 msgid "MAILCHIMP ERROR: (%s) %s"
 msgstr ""
 
-#: init.php:114
+#: includes/functions.yith-wcmc.php:18
+msgctxt "Mailchimp error translation (-50)"
+msgid "You have made too many connections on the MailChimp server."
+msgstr ""
+
+#: includes/functions.yith-wcmc.php:19
+msgctxt "MailChimp error translation (101)"
+msgid ""
+"You cannot use your APIs, because your user profile has been deactivated."
+msgstr ""
+
+#: includes/functions.yith-wcmc.php:20
+msgctxt "MailChimp error translation (104)"
+msgid ""
+"Your API key may be invalid, or you've attempted to access the wrong "
+"datacenter."
+msgstr ""
+
+#: includes/functions.yith-wcmc.php:21
+msgctxt "MailChimp error translation (105)"
+msgid ""
+"You cannot use your APIs, because your user profile is under maintenance."
+msgstr ""
+
+#: includes/functions.yith-wcmc.php:22
+msgctxt "MailChimp error translation (109)"
+msgid ""
+"You cannot complete your operation, because you don't have the necessary "
+"authorization."
+msgstr ""
+
+#: includes/functions.yith-wcmc.php:23
+msgctxt "MailChimp error translation (120)"
+msgid "You have requested an invalid operation."
+msgstr ""
+
+#: includes/functions.yith-wcmc.php:24
+msgctxt "MailChimp error translation (232)"
+msgid "The email you have written is not valid, please try to write it again."
+msgstr ""
+
+#: includes/functions.yith-wcmc.php:25
+msgctxt "MailChimp error translation (500)"
+msgid "The sent information are not valid, please double check them."
+msgstr ""
+
+#: includes/functions.yith-wcmc.php:28
+msgctxt "MailChimp error translation (-99)"
+msgid "You submitted an invalid email address that cannot be imported."
+msgstr ""
+
+#: includes/functions.yith-wcmc.php:29
+msgctxt "MailChimp error translation (200)"
+msgid "Invalid MailChimp List ID."
+msgstr ""
+
+#: includes/functions.yith-wcmc.php:30
+msgctxt "MailChimp error translation (214)"
+msgid "You submitted an email address that is already subscribed to the list."
+msgstr ""
+
+#: init.php:123
 msgid ""
 "YITH WooCommerce MailChimp is enabled but not effective. It requires "
 "WooCommerce in order to work."
 msgstr ""
 
-#: init.php:124
+#: init.php:133
 msgid ""
 "You can't activate the free version of YITH WooCommerce MailChimp while you "
 "are using the premium one."

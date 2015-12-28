@@ -81,7 +81,10 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
         }
 
         public function add_box_thumb( $thumb, $post_id ) {
-            if ( !$this->is_in_sidebar() && !is_cart() && !is_checkout() ) {
+            $hide_in_sidebar = get_option( 'yith-wcbm-hide-in-sidebar', 'yes' ) == 'yes';
+            $show_in_sidebar = !$hide_in_sidebar;
+
+            if ( ( !$this->is_in_sidebar() || $show_in_sidebar ) && !is_cart() && !is_checkout() ) {
                 return self::show_badge_on_product( $thumb, $post_id );
             } else {
                 return $thumb;
@@ -137,13 +140,14 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
             $hide_on_sale_default = get_option( 'yith-wcbm-hide-on-sale-default' ) == 'yes' ? true : false;
 
             $product_id = $post->ID;
-
             $product_id = $this->get_wpml_parent_id( $product_id );
+
+            $badge_overrides_default_on_sale = get_option( 'yith-wcbm-product-badge-overrides-default-on-sale', 'yes' ) == 'yes';
 
             $bm_meta  = get_post_meta( $product_id, '_yith_wcbm_product_meta', true );
             $id_badge = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
 
-            if ( $hide_on_sale_default || $id_badge != '' ) {
+            if ( $hide_on_sale_default || ( $id_badge != '' && $badge_overrides_default_on_sale ) ) {
                 return '';
             }
 
@@ -183,8 +187,8 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
                 return $val;
 
             $product_id = $this->get_wpml_parent_id( $product_id );
-            $bm_meta  = get_post_meta( $product_id, '_yith_wcbm_product_meta', true );
-            $id_badge = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
+            $bm_meta    = get_post_meta( $product_id, '_yith_wcbm_product_meta', true );
+            $id_badge   = ( isset( $bm_meta[ 'id_badge' ] ) ) ? $bm_meta[ 'id_badge' ] : '';
 
             if ( empty( $id_badge ) )
                 return $val;
@@ -205,7 +209,7 @@ if ( !class_exists( 'YITH_WCBM_Frontend' ) ) {
 
         public function enqueue_scripts() {
             wp_enqueue_style( 'yith_wcbm_badge_style', YITH_WCBM_ASSETS_URL . '/css/frontend.css' );
-            wp_enqueue_style( 'googleFontsOpenSans', 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' );
+            wp_enqueue_style( 'googleFontsOpenSans', '//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' );
         }
 
         public function get_wpml_parent_id( $id, $post_type = 'product' ) {

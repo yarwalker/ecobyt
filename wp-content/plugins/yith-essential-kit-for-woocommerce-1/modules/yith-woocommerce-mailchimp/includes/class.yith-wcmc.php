@@ -243,7 +243,7 @@ if ( ! class_exists( 'YITH_WCMC' ) ) {
 				return array(
 					'status' => false,
 					'code' => $e->getCode(),
-					'message' => $e->getMessage()
+					'message' => $this->maybe_translate( $e->getCode(), $e->getMessage() )
 				);
 			}
 		}
@@ -285,6 +285,24 @@ if ( ! class_exists( 'YITH_WCMC' ) ) {
 
 			// return json encoded result
 			wp_send_json( $result );
+		}
+
+		/**
+		 * Search for translated error messages; default API response, if no translation is found
+		 *
+		 * @param $code string Error code
+		 * @param $default string Error message as returned by MailChimp server
+		 * @return string Translated message or default server response
+		 * @since 1.0.5
+		 */
+		public function maybe_translate( $code, $default ) {
+			$translation = yith_wcmc_include_available_translations();
+
+			if( isset( $translation[ $code ] ) ){
+				return $translation[ $code ];
+			}
+
+			return $default;
 		}
 
 		/* === ADDS FRONTEND CHECKBOX === */

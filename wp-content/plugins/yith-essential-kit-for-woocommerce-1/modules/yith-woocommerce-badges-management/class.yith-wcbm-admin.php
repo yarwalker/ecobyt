@@ -209,8 +209,8 @@ if( !class_exists( 'YITH_WCBM_Admin' ) ) {
             wp_enqueue_style('wp-color-picker');
             wp_enqueue_script('wp-color-picker');
             wp_enqueue_script('jquery-ui-tabs');
-            wp_enqueue_style('jquery-ui-style-css', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css');
-            wp_enqueue_style('googleFontsOpenSans', 'http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300');
+            wp_enqueue_style( 'jquery-ui-style-css', YITH_WCBM_ASSETS_URL . '/css/jquery-ui.css' );
+            wp_enqueue_style( 'googleFontsOpenSans', '//fonts.googleapis.com/css?family=Open+Sans:400,600,700,800,300' );
             
             $screen     = get_current_screen();
             $metabox_js = defined( 'YITH_WCBM_PREMIUM' ) ? 'metabox_options_premium.js' : 'metabox_options.js';

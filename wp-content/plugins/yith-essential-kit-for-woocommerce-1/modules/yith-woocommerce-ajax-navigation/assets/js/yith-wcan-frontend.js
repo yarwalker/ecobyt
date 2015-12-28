@@ -94,6 +94,8 @@ jQuery(function ($) {
         if (2 == arguments.length)return arrVer.apply(this, arguments)
     };
 
+    var ajax_call = false;
+
     $.fn.yith_wcan_ajax_filters = function (e, obj) {
         e.preventDefault();
         var href = obj.href,
@@ -150,9 +152,16 @@ jQuery(function ($) {
         $(yith_wcan.pagination).hide();
         $(yith_wcan.result_count).hide();
 
-        $.ajax({
+        if( ajax_call != false ){
+            ajax_call.abort();
+            ajax_call = false;
+            console.log( 'here' );
+        }
+
+        ajax_call = $.ajax({
             url    : href,
             success: function (response) {
+                ajax_call = false;
                 $(yith_wcan.container).removeClass('yith-wcan-loading');
 
                 //container

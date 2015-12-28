@@ -18,9 +18,9 @@
 			</div>
 			<div class="site-info">
                 <div class="copyright">
-                	<?php esc_attr_e( 'Copyright &copy;', 'i-craft' ); ?>  <?php bloginfo( 'name' ); ?>
+                	<?php esc_attr_e( 'Copyright &copy;', 'i-craft' ); ?>  <?php bloginfo( 'name' ); ?> <?php echo date('Y'); ?>
                 </div>            
-            	<div class="credit-info">
+            	<!--div class="credit-info">
 					<a href="<?php echo esc_url( __( 'http://wordpress.org/', 'i-craft' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'i-craft' ); ?>">
 						<?php printf( __( 'Powered by %s', 'i-craft' ), 'WordPress' ); ?>
                     </a>
@@ -28,7 +28,7 @@
                     <a href="<?php echo esc_url( __( 'http://www.templatesnext.org/', 'i-craft' ) ); ?>">
                    		<?php printf( __( 'templatesnext', 'i-craft' ) ); ?>
                     </a>
-                </div>
+                </div-->
 
 			</div><!-- .site-info -->
 		</footer><!-- #colophon -->

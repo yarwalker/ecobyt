@@ -28,22 +28,6 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 		protected static $instance;
 
 		/**
-		 * Plugin version
-		 *
-		 * @var string
-		 * @since 1.0.0
-		 */
-		public $version = '2.0.12';
-
-		/**
-		 * Plugin database version
-		 *
-		 * @var string
-		 * @since 1.0.0
-		 */
-		public $db_version = '2.0.0';
-
-		/**
 		 * Wishlist panel
 		 *
 		 * @var string Panel hookname
@@ -70,6 +54,7 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 		public $banner_img = 'http://cdn.yithemes.com/plugins/yith_wishlist.php';
 		public $doc_url = 'http://yithemes.com/docs-plugins/yith-woocommerce-wishlist/';
 		public $premium_landing_url = 'http://yithemes.com/themes/plugins/yith-woocommerce-wishlist/';
+		public $live_demo_url = 'http://plugins.yithemes.com/yith-woocommerce-wishlist/';
 
 		/**
 		 * Plugin options
@@ -118,9 +103,6 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 		 * @since 2.0.0
 		 */
 		public function __construct(){
-			define( 'YITH_WCWL_VERSION', $this->version );
-			define( 'YITH_WCWL_DB_VERSION', $this->db_version );
-
 			// init premium features for admin panel
 			if( function_exists( 'YITH_WCWL_Admin_Premium' ) ){
 				YITH_WCWL_Admin_Premium();
@@ -199,8 +181,8 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 			) );
 			$this->default_tab = apply_filters( 'yith_wcwl_default_admin_tab', $this->default_tab );
 
-			wp_register_style( 'yith-wcwl-admin', YITH_WCWL_URL . 'assets/css/admin.css' );
-			wp_register_script( 'yith-wcwl-admin', YITH_WCWL_URL . 'assets/js/admin/yith-wcwl.js' );
+			wp_register_style( 'yith-wcwl-admin', YITH_WCWL_URL . 'assets/css/admin.css', array(), YITH_WCWL_Init()->version );
+			wp_register_script( 'yith-wcwl-admin', YITH_WCWL_URL . 'assets/js/admin/yith-wcwl.js', array(), YITH_WCWL_Init()->version );
 		}
 
 		/**
@@ -221,7 +203,7 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 				do_action( 'yith_wcwl_installed' );
 				do_action( 'yith_wcwl_updated' );
 			}
-			elseif ( $this->db_version != $stored_db_version || ! YITH_WCWL_Install()->is_installed() ) {
+			elseif ( YITH_WCWL_Init()->db_version != $stored_db_version || ! YITH_WCWL_Install()->is_installed() ) {
 				add_action( 'init', array( YITH_WCWL_Install(), 'init' ) );
 				YITH_WCWL_Install()->default_options( $this->options );
 
@@ -300,6 +282,7 @@ if ( ! class_exists( 'YITH_WCWL_Admin_Init' ) ) {
 
 			if( ! function_exists( 'YITH_WCWL_Premium' ) ){
 				$plugin_links[] = '<a target="_blank" href="' . $this->get_premium_landing_uri() . '">' . __( 'Premium Version', 'yith-woocommerce-wishlist' ) . '</a>';
+				$plugin_links[] = '<a target="_blank" href="' . $this->live_demo_url . '">' . __( 'Live Demo', 'yith-woocommerce-wishlist' ) . '</a>';
 			}
 
 			return array_merge( $links, $plugin_links );

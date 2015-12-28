@@ -441,7 +441,7 @@ if ( ! function_exists( 'yit_get_woocommerce_layered_nav_link' ) ) {
      */
     function yit_get_woocommerce_layered_nav_link() {
 
-        if ( defined( 'SHOP_IS_ON_FRONT' ) || ( is_shop() && ! is_product_category() && ! is_product_taxonomy() ) ) {
+        if ( defined( 'SHOP_IS_ON_FRONT' ) || ( is_shop() && ! is_product_category() ) || is_product_taxonomy() ) {
             $return = get_post_type_archive_link( 'product' );
             return apply_filters( 'yith_wcan_untrailingslashit', true ) ? untrailingslashit( $return ) : $return;
         }

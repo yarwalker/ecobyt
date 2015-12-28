@@ -1,11 +1,30 @@
 User-Agent: *
-Disallow: /cgi-bin
-Disallow: /wp-login.php
-Disallow: /wp-admin/
-Disallow: /wp-includes/
-Disallow: /wp-content/
-Disallow: /wp-content/plugins/
-Disallow: /wp-content/themes/
-Disallow: /wp-content/uploads/
+Disallow: /mint/
+Disallow: /labs/
+Disallow: /*/wp-*
+Disallow: /*/feed/*
+Disallow: /*/*?s=*
+Disallow: /*/*.js$
+Disallow: /*/*.inc$
+Disallow: /*/cgi-bin/*
+Disallow: /*/blackhole/*
+Disallow: /*/trackback/*
+Disallow: /*/xmlrpc.php
+Disallow: /xmlrpc.php
 Disallow: /?author=*
 Allow: /
+
+User-agent: Mediapartners-Google
+Allow: /
+
+User-agent: Adsbot-Google
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Googlebot-Mobile
+Allow: /
+
+User-agent: ia_archiver
+Disallow: /

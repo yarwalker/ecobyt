@@ -345,8 +345,8 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 			$this->init_stripe_sdk();
 
 			$params = array(
-				'amount'      => $this->get_amount( $order->order_total ), // Amount in cents!
-				'currency'    => strtoupper( get_woocommerce_currency() ),
+				'amount'      => $this->get_amount( $order->order_total, $order->get_order_currency() ), // Amount in cents!
+				'currency'    => strtolower( $order->get_order_currency() ? $order->get_order_currency() : get_woocommerce_currency() ),
 				'source'      => $this->token,
 				'description' => sprintf( __( '%s - Order %s', 'yith-stripe' ), esc_html( get_bloginfo( 'name' ) ), $order->get_order_number() ),
 				'metadata'    => array(
@@ -392,8 +392,8 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 		protected function get_hosted_payments_args( $order ) {
 			$args = apply_filters( 'woocommerce_stripe_hosted_args', array(
 				'key'          => $this->public_key,
-				'amount'       => $this->get_amount( $order->order_total),
-				'currency'     => strtoupper( get_woocommerce_currency() ),
+				'amount'       => $this->get_amount( $order->order_total, $order->get_order_currency() ),
+				'currency'     => strtolower( $order->get_order_currency() ? $order->get_order_currency() : get_woocommerce_currency() ),
 				'name'         => esc_html( get_bloginfo( 'name' ) ),
 				'description'  => sprintf( __( 'Order #%s', 'yith-stripe' ), $order->get_order_number() ),
 				'zip-code'     => $order->billing_postcode,
@@ -433,7 +433,7 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 				<input type="hidden" name="amount" value="<?php echo $this->get_order_total() ?>" />
 				<input type="hidden" name="signature" value="<?php echo strtoupper( md5( $this->get_order_total() . $order_id . $this->private_key ) ) ?>" />
 			</form>
-		<?php
+			<?php
 		}
 
 		/**
@@ -447,22 +447,34 @@ if ( ! class_exists( 'YITH_WCStripe_Gateway' ) ) {
 			@ob_clean();
 			header( 'HTTP/1.1 200 OK' );
 
-			if ( isset( $_REQUEST['reference'] ) && isset( $_REQUEST['signature'] ) && isset( $_REQUEST['stripeToken'] ) ) {
-				$signature = strtoupper( md5( $_REQUEST['amount'] . $_REQUEST['reference'] . $this->private_key ) );
-				$order_id  = absint( $_REQUEST['reference'] );
-				$order     = wc_get_order( $order_id );
+			try {
+				if ( isset( $_REQUEST['reference'] ) && isset( $_REQUEST['signature'] ) && isset( $_REQUEST['stripeToken'] ) ) {
+					$signature = strtoupper( md5( $_REQUEST['amount'] . $_REQUEST['reference'] . $this->private_key ) );
+					$order_id  = absint( $_REQUEST['reference'] );
+					$order     = wc_get_order( $order_id );
 
-				if ( $signature === $_REQUEST['signature'] ) {
-					$this->token = $_REQUEST['stripeToken'];
-					$response = $this->pay( $order );
+					if ( $signature === $_REQUEST['signature'] ) {
+						$this->token = $_REQUEST['stripeToken'];
+						$response    = $this->pay( $order );
 
-					if ( $response['result'] == 'fail' ) {
-						$order->update_status( 'failed', __( 'Payment was declined by Stripe.', 'yith-stripe' ) . ' ' . $response['error'] );
+						if ( $response['result'] == 'fail' ) {
+							$order->update_status( 'failed', __( 'Payment was declined by Stripe.', 'yith-stripe' ) . ' ' . $response['error'] );
+						}
+
+						wp_redirect( $this->get_return_url( $order ) );
+						exit();
 					}
-
-					wp_redirect( $this->get_return_url( $order ) );
-					exit();
 				}
+
+			} catch ( Error\Card $e ) {
+				$body = $e->getJsonBody();
+				$err  = $body['error'];
+				$message = isset( $this->errors[ $err['code'] ] ) ? $this->errors[ $err['code'] ] : $err['message'];
+
+				wc_add_notice( $message, 'error' );
+				wp_redirect( get_permalink( wc_get_page_id( 'checkout' ) ) );
+				exit();
+
 			}
 
 			wp_redirect( get_permalink( wc_get_page_id( 'cart' ) ) );

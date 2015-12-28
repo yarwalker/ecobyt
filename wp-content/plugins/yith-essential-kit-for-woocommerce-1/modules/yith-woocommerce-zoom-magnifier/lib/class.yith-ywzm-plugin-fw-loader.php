@@ -66,7 +66,7 @@ if ( ! class_exists( 'YITH_YWZM_Plugin_FW_Loader' ) ) {
 			 */
 			add_action( 'admin_init', array( $this, 'register_pointer' ) );
 
-			add_action( 'after_setup_theme', array( $this, 'plugin_fw_loader' ), 1 );
+			add_action( 'plugins_loaded', array( $this, 'plugin_fw_loader' ), 15 );
 
 			//Add action links
 			add_filter( 'plugin_action_links_' . plugin_basename( YITH_YWZM_DIR . '/' . basename( YITH_YWZM_FILE ) ), array(

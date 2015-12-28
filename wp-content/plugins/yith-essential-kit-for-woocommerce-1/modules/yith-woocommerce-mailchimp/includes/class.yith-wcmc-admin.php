@@ -52,6 +52,13 @@ if ( ! class_exists( 'YITH_WCMC_Admin' ) ) {
 		public $doc_url = 'http://yithemes.com/docs-plugins/yith-woocommerce-mailchimp/';
 
 		/**
+		 * Live demo url
+		 * @var string Live demo url
+		 * @since 1.0.0
+		 */
+		public $live_demo_url = 'http://plugins.yithemes.com/yith-woocommerce-mailchimp/';
+
+		/**
 		 * Returns single instance of the class
 		 *
 		 * @return \YITH_WCMC_Admin
@@ -120,8 +127,8 @@ if ( ! class_exists( 'YITH_WCMC_Admin' ) ) {
 			$prefix = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? '' : '.min';
 
 			if( $pagenow == 'admin.php' && isset( $_GET['page'] ) && 'yith_wcmc_panel' == $_GET['page'] ){
-				wp_enqueue_style( 'yith-wcmc-admin', YITH_WCMC_URL . '/assets/css/admin/yith-wcmc.css' );
-				wp_enqueue_script( 'yith-wcmc-admin', YITH_WCMC_URL . '/assets/js/admin' . $path . '/yith-wcmc' . $prefix . '.js', array( 'jquery', 'jquery-blockui' ), false, true );
+				wp_enqueue_style( 'yith-wcmc-admin', YITH_WCMC_URL . '/assets/css/admin/yith-wcmc.css', array(), YITH_WCMC_VERSION );
+				wp_enqueue_script( 'yith-wcmc-admin', YITH_WCMC_URL . '/assets/js/admin' . $path . '/yith-wcmc' . $prefix . '.js', array( 'jquery', 'jquery-blockui' ), YITH_WCMC_VERSION, true );
 
 				wp_localize_script( 'yith-wcmc-admin', 'yith_wcmc', array(
 					'labels' => array(
@@ -213,6 +220,7 @@ if ( ! class_exists( 'YITH_WCMC_Admin' ) ) {
 
 			if( ! defined( 'YITH_WCMC_PREMIUM_INIT' ) ){
 				$plugin_links[] = '<a target="_blank" href="' . $this->get_premium_landing_uri() . '">' . __( 'Premium Version', 'yith-wcmc' ) . '</a>';
+				$plugin_links[] = '<a target="_blank" href="' . $this->live_demo_url . '">' . __( 'Live Demo', 'yith-wcmc' ) . '</a>';
 			}
 
 			return array_merge( $links, $plugin_links );

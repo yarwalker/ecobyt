@@ -90,6 +90,9 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
             add_action( 'created_' . $this->_taxonomy_name, array( $this, 'save_taxonomy_fields' ), 10, 2 );
             add_action( 'pre_delete_term', array( $this, 'remove_vendor_data' ), 10, 2 );
 
+            /* Support to YITH Themes FW 2.0 */
+            add_filter( 'yit_layouts_taxonomies_list', array( $this, 'add_taxonomy_to_layouts' ) );
+
             /* Taxonomy Table Management */
             add_filter( "bulk_actions-edit-{$this->_taxonomy_name}", '__return_empty_array' );
 
@@ -234,7 +237,7 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
                 global $sitepress;
                 if( isset( $sitepress ) ){
                     $vendor_id   = yit_wpml_object_id( $vendor->id, YITH_Vendors()->get_taxonomy_name(), true );
-                    $wpml_vendor = get_term_by( 'id', $vendor_id, $vendor->term->taxonomy, $current_language );
+                    $wpml_vendor = get_term_by( 'id', $vendor_id, $vendor->term->taxonomy );
                     $slug = $wpml_vendor->slug;
                 }
                 $request[ $vendor->term->taxonomy ] = $slug;
@@ -290,6 +293,7 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
          * @use         save_post action
          */
         public function add_vendor_taxonomy_to_product( $post_id, $post ) {
+            global $pagenow, $sitepress;
             $current_vendor = yith_get_vendor( 'current', 'user' );
 
             if ( 'product' == $post->post_type && current_user_can( 'edit_post', $post_id ) ) {
@@ -819,17 +823,44 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
          *
          * @return void
          */
-        public function single_taxonomy_meta_box( $taxonomy, $taxonomy_box ) {
+         public function single_taxonomy_meta_box( $taxonomy, $taxonomy_box ) {
             $taxonomy_label = YITH_Vendors()->get_vendors_taxonomy_label();
             $vendor         = yith_get_vendor( 'current', 'product' );
+            $vendor_id      = 0;
+            $wpml_vendor    = null;
+
+            /* WPML Support */
+            global $sitepress, $pagenow;
+            if ( $vendor->is_valid() ) {
+                if ( isset( $sitepress ) ) {
+                    $vendor_id   = yit_wpml_object_id( $vendor->id, YITH_Vendors()->get_taxonomy_name(), true );
+                    $wpml_vendor = get_term_by( 'id', $vendor_id, $vendor->term->taxonomy );
+                    $vendor_id   = $wpml_vendor->term_id;
+                }
+
+                else {
+                    $vendor_id = $vendor->id;
+                }
+            }
+
+            elseif( isset( $sitepress ) && $vendor->is_super_user() && 'post-new.php' == $pagenow && ! empty( $_GET['trid'] ) ){
+                $original_product_id = SitePress::get_original_element_id_by_trid( $_GET['trid'] );
+                $original_vendor = yith_get_vendor( $original_product_id, 'product' );
+                if( $original_vendor->is_valid() ){
+                    $vendor_id   = yit_wpml_object_id( $original_vendor->id, YITH_Vendors()->get_taxonomy_name(), true );
+                    $wpml_vendor = get_term_by( 'id', $vendor_id, $original_vendor->term->taxonomy );
+                    $vendor_id   = $wpml_vendor->term_id;
+                }
+            }
+
 
             $args = array(
                 'id'                => 'tax-input-yith_shop_vendor',
                 'name'              => 'tax_input[yith_shop_vendor]',
                 'taxonomy'          => $this->_taxonomy_name,
-                'show_option_none'  => !$vendor->is_super_user() ? '' : sprintf( __( 'No %s' ), strtolower( $taxonomy_label[ 'singular_name' ] ) ),
-                'hide_empty'        => !$vendor->is_super_user(),
-                'selected'          => $vendor ? $vendor->id : 0,
+                'show_option_none'  => ! $vendor->is_super_user() ? '' : sprintf( __( 'No %s' ), strtolower( $taxonomy_label[ 'singular_name' ] ) ),
+                'hide_empty'        => ! $vendor->is_super_user(),
+                'selected'          => $vendor_id,
                 'walker'            => YITH_Walker_CategoryDropdown(),
                 'option_none_value' => '', // Avoid to save -1 as new vendor when you create a new product
             );
@@ -837,7 +868,7 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
             $vendor = yith_get_vendor( 'current', 'user' );
 
             if ( $vendor->is_valid() && $vendor->has_limited_access() && $vendor->is_user_admin() ) {
-                echo $vendor->name;
+                echo is_null( $wpml_vendor ) ? $vendor->name : $wpml_vendor->name;
             } else {
                 wp_dropdown_categories( $args );
             }
@@ -1394,6 +1425,18 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
             if( isset( $_GET['page'] ) && $this->_panel_page == $_GET['page'] && isset( $_GET['tab'] ) && 'frontpage' == $_GET['tab'] ) {
                 flush_rewrite_rules();
             }
+        }
+
+        /**
+         * Add vendor taxonomy to YITH Theme fw 2.0 in layouts section
+         *
+         * @return   mixed Taxonomies array
+         * @since    1.8.1
+         * @author   Andrea Grillo <andrea.grillo@yithemes.com>
+         */
+        public function add_taxonomy_to_layouts( $taxonomies ){
+            $taxonomies[ YITH_Vendors()->get_taxonomy_name() ] = get_taxonomy( YITH_Vendors()->get_taxonomy_name() );
+            return $taxonomies;
         }
     }
 }

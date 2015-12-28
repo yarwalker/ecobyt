@@ -218,7 +218,7 @@ if ( ! class_exists( 'YIT_Licence' ) ) {
             );
 
             $api_uri  = esc_url_raw( add_query_arg( $args, $this->get_api_uri( 'activation' ) ) );
-            $response = wp_remote_get( $api_uri );
+            $response = wp_remote_get( $api_uri, array( 'timeout' => 30 ) );
 
             if ( is_wp_error( $response ) ) {
                 $body = false;
@@ -281,7 +281,7 @@ if ( ! class_exists( 'YIT_Licence' ) ) {
             );
 
             $api_uri  = esc_url_raw( add_query_arg( $args, $this->get_api_uri( 'deactivation' ) ) );
-            $response = wp_remote_get( $api_uri );
+            $response = wp_remote_get( $api_uri, array( 'timeout' => 30 ) );
 
             if ( is_wp_error( $response ) ) {
                 $body = false;
@@ -336,7 +336,7 @@ if ( ! class_exists( 'YIT_Licence' ) ) {
          * @since  1.0
          * @author Andrea Grillo <andrea.grillo@yithemes.com>
          */
-        public function check( $product_init ) {
+        public function check( $product_init, $regenerate_transient = true ) {
 
             $status     = false;
             $body       = false;
@@ -357,7 +357,7 @@ if ( ! class_exists( 'YIT_Licence' ) ) {
             );
 
             $api_uri  = esc_url_raw( add_query_arg( $args, $this->get_api_uri( 'check' ) ) );
-            $response = wp_remote_get( $api_uri );
+            $response = wp_remote_get( $api_uri, array( 'timeout' => 30 ) );
 
             if ( ! is_wp_error( $response ) ) {
                 $body = json_decode( $response['body'] );
@@ -425,7 +425,9 @@ if ( ! class_exists( 'YIT_Licence' ) ) {
                 update_option( $this->_licence_option, $licence );
 
                 /* === Update Plugin Licence Information === */
-                YIT_Upgrade()->force_regenerate_update_transient();
+                if( $regenerate_transient ) {
+                    YIT_Upgrade()->force_regenerate_update_transient();
+                }
             }
             return $status;
         }

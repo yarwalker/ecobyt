@@ -29,7 +29,7 @@ jQuery( document ).ready( function( $ ){
         } );
 
         t.on( 'adding_to_cart', 'body', function( ev, button, data ){
-            if( button.closest( '.wishlist_table' ).length != 0 ){
+            if( typeof button != 'undefined' && typeof data != 'undefined' && button.closest( '.wishlist_table' ).length != 0 ){
                 data.remove_from_wishlist_after_add_to_cart = button.closest( 'tr' ).data( 'row-id' );
                 data.wishlist_id = button.closest( 'table' ).data( 'id' );
                 wc_add_to_cart_params.cart_redirect_after_add = yith_wcwl_l10n.redirect_to_cart;

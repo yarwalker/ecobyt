@@ -19,6 +19,8 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
          */
     class YITH_WCAN_Navigation_Widget extends WP_Widget {
 
+        public $brand_taxonomy = '';
+
         function __construct() {
             $widget_ops  = array( 'classname' => 'yith-woo-ajax-navigation woocommerce widget_layered_nav', 'description' => __( 'Filter the product list without reloading the page', 'yith-woocommerce-ajax-navigation' ) );
             $control_ops = array( 'width' => 400, 'height' => 350 );
@@ -39,6 +41,10 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
 
             if ( apply_filters( 'yith_wcan_show_widget', ! is_post_type_archive( 'product' ) && ! is_tax( $_attributes_array ) ) ) {
                 return;
+            }
+
+            if( defined( 'YITH_WCBR_PREMIUM_INIT' ) && YITH_WCBR_PREMIUM_INIT ) {
+                $this->brand_taxonomy = YITH_WCBR::$brands_taxonomy;
             }
 
             $current_term    = $_attributes_array && is_tax( $_attributes_array ) ? get_queried_object()->term_id : '';
@@ -197,6 +203,13 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
 
                         if ( isset( $_GET['product_tag'] ) && $display_type != 'tags' ) {
                             $link = add_query_arg( 'product_tag', urlencode( $_GET['product_tag'] ), $link );
+                        }
+
+                        if ( isset( $_GET[ $this->brand_taxonomy ] ) ) {
+                            $brands = get_term_by( 'name', $_GET[ $this->brand_taxonomy ], $this->brand_taxonomy );
+                            if( $brands->term_id != $term->term_id ){
+                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->name ), $link );
+                            }
                         }
 
                         $check_for_current_widget = isset( $_chosen_attributes[$taxonomy] ) && is_array( $_chosen_attributes[$taxonomy]['terms'] ) && in_array( $term->term_id, $_chosen_attributes[$taxonomy]['terms'] );
@@ -365,6 +378,13 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             $link = add_query_arg( 'product_tag', urlencode( $_GET['product_tag'] ), $link );
                         }
 
+                        if ( isset( $_GET[ $this->brand_taxonomy ] ) ) {
+                            $brands = get_term_by( 'name', $_GET[ $this->brand_taxonomy ], $this->brand_taxonomy );
+                            if( $brands->term_id != $term->term_id ){
+                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->name ), $link );
+                            }
+                        }
+
                         // Current Filter = this widget
                         if ( isset( $_chosen_attributes[$taxonomy] ) && is_array( $_chosen_attributes[$taxonomy]['terms'] ) && in_array( $term->term_id, $_chosen_attributes[$taxonomy]['terms'] ) ) {
 
@@ -523,6 +543,13 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             $link = add_query_arg( 'product_tag', urlencode( $_GET['product_tag'] ), $link );
                         }
 
+                        if ( isset( $_GET[ $this->brand_taxonomy ] ) ) {
+                            $brands = get_term_by( 'name', $_GET[ $this->brand_taxonomy ], $this->brand_taxonomy );
+                            if( $brands->term_id != $term->term_id ){
+                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->name ), $link );
+                            }
+                        }
+
                         // Current Filter = this widget
                         if ( isset( $_chosen_attributes[$taxonomy] ) && is_array( $_chosen_attributes[$taxonomy]['terms'] ) && in_array( $term->term_id, $_chosen_attributes[$taxonomy]['terms'] ) ) {
 
@@ -679,6 +706,13 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             $link = add_query_arg( 'product_tag', urlencode( $_GET['product_tag'] ), $link );
                         }
 
+                        if ( isset( $_GET[ $this->brand_taxonomy ] ) ) {
+                            $brands = get_term_by( 'name', $_GET[ $this->brand_taxonomy ], $this->brand_taxonomy );
+                            if( $brands->term_id != $term->term_id ){
+                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->name ), $link );
+                            }
+                        }
+
                         // Current Filter = this widget
                         if ( isset( $_chosen_attributes[$taxonomy] ) && is_array( $_chosen_attributes[$taxonomy]['terms'] ) && in_array( $term->term_id, $_chosen_attributes[$taxonomy]['terms'] ) ) {
 
@@ -798,6 +832,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
             </p>
 
             <p class="yith-wcan-attribute-list" style="display: <?php echo $instance['type'] == 'tags' || $instance['type'] == 'brands' || $instance['type'] == 'categories' ? 'none' : 'block' ?>;">
+
                 <label for="<?php echo $this->get_field_id( 'attribute' ); ?>"><strong><?php _e( 'Attribute:', 'yith-woocommerce-ajax-navigation' ) ?></strong></label>
                 <select class="yith_wcan_attributes widefat" id="<?php echo esc_attr( $this->get_field_id( 'attribute' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'attribute' ) ); ?>">
                     <?php yith_wcan_dropdown_attributes( $instance['attribute'] ); ?>

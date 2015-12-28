@@ -195,18 +195,18 @@
         <div class="landing-container">
             <div class="premium-cta">
                 <p>
-                    Upgrade to the <span class="highlight">premium version</span>
-                    of <span class="highlight">YITH WooCommerce Tab Manager</span> to benefit from all features!
+                    <?php echo sprintf( __('Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Tab Manager%2$s to benefit from all features!','yith-woocommerce-tab-manager'),'<span class="highlight">','</span>' );?>
+
                 </p>
                 <a href="<?php echo $this->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
-                    <span class="highlight">UPGRADE</span>
-                    <span>to the premium version</span>
+                    <span class="highlight"><?php _e( 'UPGRADE','yith-woocommerce-tab-manager' );?></span>
+                    <span><?php _e( 'to the premium version','yith-woocommerce-tab-manager' );?></span>
                 </a>
             </div>
         </div>
     </div>
     <div class="section section-even clear" style="background: url(<?php echo YWTM_ASSETS_URL ?>/images/01-bg.png) no-repeat #fff; background-position: 85% 75%">
-        <h1>Premium Features</h1>
+        <h1><?php _e( 'Premium Features' ,'yith-woocommerce-tab-manager' );?></h1>
         <div class="landing-container">
             <div class="col-1">
                 <img src="<?php echo YWTM_ASSETS_URL ?>/images/01.png" alt="Review Title" />
@@ -214,13 +214,14 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWTM_ASSETS_URL ?>/images/01-icon.png" alt="Review Title"/>
-                    <h2>Free tab sorting</h2>
+                    <h2><?php _e( 'Free tab sorting', 'yith-woocommerce-tab-manager' );?></h2>
                 </div>
                 <p>
-                    Enjoy creating unlimited tabs to add to your products and sort them in the way you think is the best
-                    one. To do that, take advantage of the innovation added in the premium version: <b>you will not be
-                    forced to let your tabs appear after WooCommerce tabs</b>, but it will be up to you to decide to display
-                    them before or after them. Finally, you are free to sort them!
+                   <?php echo sprintf( __( 'Enjoy creating unlimited tabs to add to your products and sort them in the way you think is the best
+                    one. To do that, take advantage of the innovation added in the premium version: %1$syou will not be
+                    forced to let your tabs appear after WooCommerce tabs%2$s, but it will be up to you to decide to display
+                    them before or after them. Finally, you are free to sort them!', 'yith-woocommerce-tab-manager' ), '<b>','</b>' );
+                ?>
                 </p>
             </div>
         </div>
@@ -230,11 +231,13 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWTM_ASSETS_URL ?>/images/02-icon.png" alt="Attachment List" />
-                    <h2>An icon for each tab</h2>
+                    <h2><?php _e( 'An icon for each tab', 'yith-woocommerce-tab-manager' );?></h2>
                 </div>
-                <p>Placing an icon next to the name of each tab is a wonderful way to give style to your tab. You’ll
-                    have a <b>wide selection of icons</b> (Font Awesome and Font Retina) put at your disposal, but if you want
-                    even more, you can upload your own icon and preview it before publishing it.
+                <p>
+                    <?php echo  sprintf( __( 'Placing an icon next to the name of each tab is a wonderful way to give style to your tab. You’ll
+                    have a %1$swide selection of icons%2$s (Font Awesome and Font Retina) put at your disposal, but if you want
+                    even more, you can upload your own icon and preview it before publishing it.', 'yith-woocommerce-tab-manager'), '<b>','</b>' );
+                    ?>
                 </p>
             </div>
             <div class="col-1">
@@ -250,11 +253,14 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWTM_ASSETS_URL ?>/images/03-icon.png" alt="Vote the review" />
-                    <h2>Tab type</h2>
+                    <h2><?php _e( 'Tab type','yith-woocommerce-tab-manager' );?></h2>
                 </div>
-                <p>Not all tabs are meant to be associated to all products indiscriminately. Choose your tab type among
-                    <b>“global”, “category”</b> and <b>“product”</b> and associate the tab either to all products, as set by default,
-                    to all products belonging to one or more categories or to one or more specific products.</p>
+                <p>
+                    <?php echo sprintf( __('Not all tabs are meant to be associated to all products indiscriminately. Choose your tab type among
+                    %1$s“global”, “category”%2$s and %1$s“product”%2$s and associate the tab either to all products, as set by default,
+                    to all products belonging to one or more categories or to one or more specific products.', 'yith-woocommerce-tab-manager' ), '<b>','</b>' );
+?>
+                </p>
             </div>
         </div>
     </div>
@@ -263,11 +269,13 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWTM_ASSETS_URL ?>/images/04-icon.png" alt="Number" />
-                    <h2>Custom tab for each product</h2>
+                    <h2><?php _e( 'Custom tab for each product', 'yith-woocommerce-tab-manager' );?></h2>
                 </div>
-                <p>Do you want a tab with a <b>different content</b> for each product? You can have it!<br> A specific option of
+                <p>
+                 <?php echo sprintf( __( 'Do you want a tab with a %1$sdifferent content%2$s for each product? You can have it!%3$s A specific option of
                     this plugin allows you to change the content according to the product and directly from its page in
-                    WooCommerce for a quick and simple management.</p>
+                    WooCommerce for a quick and simple management.', 'yith-woocommerce-tab-manager'), '<b>','</b>','<br>' ); ?>
+                </p>
             </div>
             <div class="col-1">
                 <img src="<?php echo YWTM_ASSETS_URL ?>/images/04.png" alt="Number" />
@@ -282,14 +290,14 @@
             <div class="col-2">
                 <div class="section-title">
                     <img src="<?php echo YWTM_ASSETS_URL?>/images/05-icon.png" alt="Filter by rating" />
-                    <h2>8 tab layouts available</h2>
+                    <h2><?php _e( '8 tab layouts available', 'yith-woocommerce-tab-manager' );?></h2>
                 </div>
                 <p>
-                    One would say “... and you name it!”<br>
-                    <b>Eight different layouts</b> will allow you to create unlimited tabs with different contents, which is
+                   <?php echo sprintf( __('One would say “... and you name it!”%1$s
+                    %2$sEight different layouts%3$s will allow you to create unlimited tabs with different contents, which is
                     not just text. You can add image or video galleries, contact forms, maps, F.A.Q.s, files available
                     for download or set the tab so that you can add whatever shortcode you need.
-                    <b>You do not need anything more to achieve the best results!</b>
+                    %2$sYou do not need anything more to achieve the best results!%3$s', 'yith-woocommerce-tab-manager'), '<br>','<b>','</b>' );?>
                 </p>
             </div>
         </div>
@@ -298,12 +306,12 @@
         <div class="landing-container">
             <div class="premium-cta">
                 <p>
-                    Upgrade to the <span class="highlight">premium version</span>
-                    of <span class="highlight">YITH WooCommerce Tab Manager</span> to benefit from all features!
+                    <?php echo sprintf( __('Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Tab Manager%2$s to benefit from all features!','yith-woocommerce-tab-manager'),'<span class="highlight">','</span>' );?>
+
                 </p>
                 <a href="<?php echo $this->get_premium_landing_uri() ?>" target="_blank" class="premium-cta-button button btn">
-                    <span class="highlight">UPGRADE</span>
-                    <span>to the premium version</span>
+                    <span class="highlight"><?php _e( 'UPGRADE','yith-woocommerce-tab-manager' );?></span>
+                    <span><?php _e( 'to the premium version','yith-woocommerce-tab-manager' );?></span>
                 </a>
             </div>
         </div>

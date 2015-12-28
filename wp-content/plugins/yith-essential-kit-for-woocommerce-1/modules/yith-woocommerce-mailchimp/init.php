@@ -3,7 +3,7 @@
  * Plugin Name: YITH WooCommerce Mailchimp
  * Plugin URI: http://yithemes.com/themes/plugins/yith-woocommerce-mailchimp/
  * Description: YITH WooCommerce Mailchimp allows you to integrate the most popular newsletter campaign manager on your ecommerce.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Yithemes
  * Author URI: http://yithemes.com/
  * Text Domain: yith-wcmc
@@ -43,6 +43,10 @@ if ( ! defined( 'YITH_WCMC' ) ) {
 	define( 'YITH_WCMC', true );
 }
 
+if ( ! defined( 'YITH_WCMC_VERSION' ) ) {
+	define( 'YITH_WCMC_VERSION', '1.0.5' );
+}
+
 if ( ! defined( 'YITH_WCMC_URL' ) ) {
 	define( 'YITH_WCMC_URL', plugin_dir_url( __FILE__ ) );
 }
@@ -67,7 +71,10 @@ if( ! function_exists( 'yith_mailchimp_constructor' ) ) {
 	function yith_mailchimp_constructor() {
 		load_plugin_textdomain( 'yith-wcmc', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-		require_once( YITH_WCMC_INC . 'mailchimp/Mailchimp.php' );
+		if( ! class_exists( 'Mailchimp' ) ) {
+			require_once( YITH_WCMC_INC . 'mailchimp/Mailchimp.php' );
+		}
+		require_once( YITH_WCMC_INC . 'functions.yith-wcmc.php' );
 		require_once( YITH_WCMC_INC . 'class.yith-wcmc.php' );
 
 		// Let's start the game

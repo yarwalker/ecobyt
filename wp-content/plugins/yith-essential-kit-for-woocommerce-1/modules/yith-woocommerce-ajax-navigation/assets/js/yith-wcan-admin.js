@@ -62,7 +62,7 @@ jQuery(function ($) {
             show_count.hide();
         }
 
-        if( data.value == 'tags' || data.value == 'brands' ){
+        if( data.value == 'tags' || data.value == 'brands' || data.value == 'categories' ){
             attributes.hide();
         } else {
             attributes.show();

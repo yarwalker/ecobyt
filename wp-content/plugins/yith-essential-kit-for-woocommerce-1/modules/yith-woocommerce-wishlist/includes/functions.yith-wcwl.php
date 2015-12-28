@@ -105,6 +105,18 @@ if( !function_exists( 'yith_wcwl_count_products' ) ) {
     }
 }
 
+if( !function_exists( 'yith_wcwl_count_all_products' ) ) {
+    /**
+     * Retrieve the number of products in all the wishlists.
+     *
+     * @return int
+     * @since 2.0.13
+     */
+    function yith_wcwl_count_all_products() {
+        return YITH_WCWL()->count_all_products();
+    }
+}
+
 if( !function_exists( 'yith_frontend_css_color_picker' ) ) {
     /**
      * Output a colour picker input box.

@@ -866,8 +866,8 @@ if ( ! function_exists ( 'yit_wpml_object_id' ) ) {
      * @author Antonio La Rocca <antonio.larocca@yithemes.com>
      */
     function yit_wpml_object_id ( $element_id, $element_type = 'post', $return_original_if_missing = false, $ulanguage_code = null ) {
-        if ( function_exists ( 'wpml_object_id' ) ) {
-            return wpml_object_id ( $element_id, $element_type, $return_original_if_missing, $ulanguage_code );
+        if ( function_exists ( 'wpml_object_id_filter' ) ) {
+            return wpml_object_id_filter( $element_id, $element_type, $return_original_if_missing, $ulanguage_code );
         } elseif ( function_exists ( 'icl_object_id' ) ) {
             return icl_object_id ( $element_id, $element_type, $return_original_if_missing, $ulanguage_code );
         } else {

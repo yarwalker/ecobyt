@@ -6,7 +6,7 @@
 
 //Add support to YITH Product Vendors db version 1.0.1
 function yith_vendors_update_db_1_0_1() {
-    $vendors_db_option = get_option( 'yith_product_vendors_db_version' );
+    $vendors_db_option = get_option( 'yith_product_vendors_db_version', '1.0.0' );
     if ( $vendors_db_option && version_compare( $vendors_db_option, '1.0.1', '<' ) ) {
         global $wpdb;
 
@@ -39,7 +39,7 @@ function yith_vendors_update_db_1_0_1() {
 
 //Add support to YITH Product Vendors db version 1.0.2
 function yith_vendors_update_db_1_0_2() {
-    $vendors_db_option = get_option( 'yith_product_vendors_db_version' );
+    $vendors_db_option = get_option( 'yith_product_vendors_db_version', '1.0.0' );
     if ( $vendors_db_option && version_compare( $vendors_db_option, '1.0.2', '<' ) ) {
         global $wpdb;
 
@@ -50,9 +50,9 @@ function yith_vendors_update_db_1_0_2() {
     }
 }
 
-//Add support to YITH Product Vendors db version 1.0.6
+//Add support to YITH Product Vendors db version 1.0.3
 function yith_vendors_update_db_1_0_3(){
-    $vendors_db_option = get_option( 'yith_product_vendors_db_version' );
+    $vendors_db_option = get_option( 'yith_product_vendors_db_version', '1.0.0' );
     if ( $vendors_db_option && version_compare( $vendors_db_option, '1.0.3', '<' ) ) {
         /**
          * Create "Become a Vendor" Page
@@ -82,9 +82,26 @@ add_action( 'admin_init', 'yith_vendors_update_db_1_0_3' );
 /**
  * Plugin Version Update
  */
+//Add support to YITH Product Vendors plugin version 1.8.1
+function yith_vendors_plugin_update_1_8_1() {
+    $plugin_version = get_option( 'yith_wcmv_version', '1.0.0' );
+    if ( version_compare( $plugin_version, YITH_Vendors()->version, '<' ) ) {
+        // _money_spent and _order_count may be out of sync - clear them
+        delete_metadata( 'user', 0, '_money_spent', '', true );
+        delete_metadata( 'user', 0, '_order_count', '', true );
+    }
+}
+
+//priority set to 20 after vendor register taxonomy
+add_action( 'admin_init', 'yith_vendors_plugin_update_1_8_1', 20 );
+
+/**
+ * Regenerate Vendor Role Capabilities fter update by FTP
+ */
+
 function yith_vendors_plugin_update() {
-    $db_plugin_version = get_option( 'yith_wcmv_version', '1.0.0' );
-    if ( version_compare( $db_plugin_version, YITH_Vendors()->version, '<' ) ) {
+    $plugin_version = get_option( 'yith_wcmv_version', '1.0.0' );
+    if ( version_compare( $plugin_version, YITH_Vendors()->version, '<' ) ) {
         /* Check if Vendor Role Exists */
         YITH_Vendors::add_vendor_role();
         /* Add Vendor Role to vendor owner and admins */
@@ -92,6 +109,6 @@ function yith_vendors_plugin_update() {
         update_option( 'yith_wcmv_version', YITH_Vendors()->version );
     }
 }
-
-add_action( 'admin_init', 'yith_vendors_plugin_update', 20 ); //priority set to 20 after vendor register taxonomy
+//priority set to 30 after vendor register taxonomy and other actions
+add_action( 'admin_init', 'yith_vendors_plugin_update', 30 );
 

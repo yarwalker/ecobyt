@@ -3,7 +3,7 @@
  * Plugin Name: YITH WooCommerce Tab Manager
  * Plugin URI: http://yithemes.com/themes/plugins/yith-woocommerce-tab-manager/
  * Description: YITH WooCommerce Tab Manager allows you to add Tab to products.
- * Version: 1.0.6
+ * Version: 1.1.0
  * Author: Yithemes
  * Author URI: http://yithemes.com/
  * Text Domain: yith_wc_tab_manager
@@ -11,7 +11,7 @@
  *
  * @author Your Inspiration Themes
  * @package YITH WooCommerce Tab Manager
- * @version 1.0.6
+ * @version 1.1.0
  */
 
 /*  Copyright 2013  Your Inspiration Themes  (email : plugins@yithemes.com)
@@ -44,7 +44,7 @@ if ( !function_exists( 'WC' ) ) {
     function yith_ywtm_install_woocommerce_admin_notice() {
         ?>
         <div class="error">
-            <p><?php _e( 'YITH WooCommerce Tab Manager is enabled but not effective. It requires WooCommerce in order to work.', 'yith_wc_tab_manager' ); ?></p>
+            <p><?php _e( 'YITH WooCommerce Tab Manager is enabled but not effective. It requires WooCommerce in order to work.', 'yith-woocommerce-tab-manager' ); ?></p>
         </div>
     <?php
     }
@@ -53,7 +53,7 @@ if ( !function_exists( 'WC' ) ) {
     function yith_ywtm_install_free_admin_notice() {
         ?>
         <div class="error">
-            <p><?php _e( 'You can\'t activate the free version of YITH WooCommerce Tab Manager while you are using the premium one.', 'yith_wc_tab_manager' ); ?></p>
+            <p><?php _e( 'You can\'t activate the free version of YITH WooCommerce Tab Manager while you are using the premium one.', 'yith-woocommerce-tab-manager' ); ?></p>
         </div>
     <?php
     }
@@ -65,7 +65,7 @@ if ( !function_exists( 'yith_plugin_registration_hook' ) ) {
 
 
 if ( !defined( 'YWTM_VERSION' ) ) {
-	define( 'YWTM_VERSION', '1.0.6' );
+	define( 'YWTM_VERSION', '1.1.0' );
 }
 
 if ( !defined( 'YWTM_FREE_INIT' ) ) {
@@ -106,7 +106,7 @@ if ( ! function_exists( 'YITH_Tab_Manager_Init' ) ) {
 	function YITH_Tab_Manager_Init() {
 
         /* Load YWTM text domain */
-        load_plugin_textdomain( 'yith_wc_tab_manager', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+        load_plugin_textdomain( 'yith-woocommerce-tab-manager', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		// Load required classes and functions
         require_once( YWTM_INC .'functions.yith-tab-manager.php' );

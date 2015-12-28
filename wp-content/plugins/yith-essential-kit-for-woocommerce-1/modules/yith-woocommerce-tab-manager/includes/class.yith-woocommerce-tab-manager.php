@@ -176,17 +176,17 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
             }
 
             $admin_tabs = array(
-                'settings'      => __( 'Settings', 'yith_wc_tab_manager' ),
+                'settings'      => __( 'Settings', 'yith-woocommerce-tab-manager' ),
             );
 
             if( !defined( 'YWTM_PREMIUM' ) )
-                $admin_tabs['premium-landing'] = __( 'Premium Version', 'yith_wc_tab_manager' );
+                $admin_tabs['premium-landing'] = __( 'Premium Version', 'yith-woocommerce-tab-manager' );
 
             $args = array(
                 'create_menu_page' => true,
                 'parent_slug'      => '',
-                'page_title'       => __( 'Tab Manager', 'yith_wc_tab_manager' ),
-                'menu_title'       => __( 'Tab Manager', 'yith_wc_tab_manager' ),
+                'page_title'       => __( 'Tab Manager', 'yith-woocommerce-tab-manager' ),
+                'menu_title'       => __( 'Tab Manager', 'yith-woocommerce-tab-manager' ),
                 'capability'       => 'manage_options',
                 'parent'           => '',
                 'parent_page'      => 'yit_plugin_panel',
@@ -229,10 +229,10 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
          */
         public function action_links( $links ) {
 
-            $links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'yith_wc_tab_manager' ) . '</a>';
+            $links[] = '<a href="' . admin_url( "admin.php?page={$this->_panel_page}" ) . '">' . __( 'Settings', 'yith-woocommerce-tab-manager' ) . '</a>';
 
             if ( defined( 'YWTM_FREE_INIT' ) ) {
-                $links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'yith_wc_tab_manager' ) . '</a>';
+                $links[] = '<a href="' . $this->get_premium_landing_uri() . '" target="_blank">' . __( 'Premium Version', 'yith-woocommerce-tab-manager' ) . '</a>';
             }
 
             return $links;
@@ -246,8 +246,8 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
          */
         public function enqueue_admin_style()
         {
-            wp_enqueue_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array() );
-            wp_enqueue_style( 'yit-tab-style', YWTM_ASSETS_URL . 'css/yith-tab-manager-admin.css' );
+            wp_enqueue_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array(), YWTM_VERSION );
+            wp_enqueue_style( 'yit-tab-style', YWTM_ASSETS_URL . 'css/yith-tab-manager-admin.css', array(), YWTM_VERSION );
         }
 
         /**
@@ -270,7 +270,7 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
                 ( defined( 'YWTM_FREE_INIT' ) && ( YWTM_FREE_INIT == $plugin_file ) )
             ) {
 
-                $plugin_meta[] = '<a href="' . $this->_official_documentation . '" target="_blank">' . __( 'Plugin Documentation', 'yith_wc_tab_manager' ) . '</a>';
+                $plugin_meta[] = '<a href="' . $this->_official_documentation . '" target="_blank">' . __( 'Plugin Documentation', 'yith-woocommerce-tab-manager' ) . '</a>';
             }
 
             return $plugin_meta;
@@ -289,8 +289,8 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
 
 
          $args = apply_filters('yith_wctm_post_type',array(
-                 'label'                =>  __('ywtm_tab', 'yith_wc_tab_manager'),
-                 'description'          =>  __('Yith Tab Manager Description', 'yith_wc_tab_manager'),
+                 'label'                =>  __('ywtm_tab', 'yith-woocommerce-tab-manager'),
+                 'description'          =>  __('Yith Tab Manager Description', 'yith-woocommerce-tab-manager'),
                  'labels'               =>  $this->get_tab_taxonomy_label(),
                  'supports'             =>  array('title'),
                  'hierarchical'         =>  true,
@@ -329,19 +329,19 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
         protected  function get_tab_taxonomy_label( $arg = '' ) {
 
             $label = apply_filters( 'yith_tab_manager_taxonomy_label', array(
-                    'name'                  =>  _x('YITH WooCommerce Tab Manager', 'Post Type General Name', 'yith_wc_tab_manager'),
-                    'singular_name'         =>  _x('Tab', 'Post Type Singular Name', 'yith_wc_tab_manager'),
-                    'menu_name'             =>  __('Tab Manager', 'yith_wc_tab_manager'),
-                    'parent_item_colon'     =>  __('Parent Item:', 'yith_wc_tab_manager'),
-                    'all_items'             =>  __('All Tabs', 'yith_wc_tab_manager'),
-                    'view_item'             =>  __('View Tabs', 'yith_wc_tab_manager'),
-                    'add_new_item'          =>  __('Add New Tab', 'yith_wc_tab_manager'),
-                    'add_new'               =>  __('Add New Tab', 'yith_wc_tab_manager'),
-                    'edit_item'             =>  __('Edit Tab', 'yith_wc_tab_manager'),
-                    'update_item'           =>  __('Update Tab', 'yith_wc_tab_manager'),
-                    'search_items'          =>  __('Search Tab', 'yith_wc_tab_manager'),
-                    'not_found'             =>  __('Not found', 'yith_wc_tab_manager'),
-                    'not_found_in_trash'    =>  __('Not found in Trash', 'yith_wc_tab_manager'),
+                    'name'                  =>  _x('YITH WooCommerce Tab Manager', 'Post Type General Name', 'yith-woocommerce-tab-manager'),
+                    'singular_name'         =>  _x('Tab', 'Post Type Singular Name', 'yith-woocommerce-tab-manager'),
+                    'menu_name'             =>  __('Tab Manager', 'yith-woocommerce-tab-manager'),
+                    'parent_item_colon'     =>  __('Parent Item:', 'yith-woocommerce-tab-manager'),
+                    'all_items'             =>  __('All Tabs', 'yith-woocommerce-tab-manager'),
+                    'view_item'             =>  __('View Tabs', 'yith-woocommerce-tab-manager'),
+                    'add_new_item'          =>  __('Add New Tab', 'yith-woocommerce-tab-manager'),
+                    'add_new'               =>  __('Add New Tab', 'yith-woocommerce-tab-manager'),
+                    'edit_item'             =>  __('Edit Tab', 'yith-woocommerce-tab-manager'),
+                    'update_item'           =>  __('Update Tab', 'yith-woocommerce-tab-manager'),
+                    'search_items'          =>  __('Search Tab', 'yith-woocommerce-tab-manager'),
+                    'not_found'             =>  __('Not found', 'yith-woocommerce-tab-manager'),
+                    'not_found_in_trash'    =>  __('Not found in Trash', 'yith-woocommerce-tab-manager'),
                     )
                 );
             return ! empty( $arg ) ? $label[ $arg ] : $label;
@@ -361,16 +361,16 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
            $messages[$this->post_type_name] =   array (
 
                0    =>  '',
-               1    =>  __($singular_name.' updated','yith_wc_tab_manager'),
-               2    =>  __('Custom field updated', 'yith_wc_tab_manager'),
-               3    =>  __('Custom field deleted', 'yith_wc_tab_manager'),
-               4    =>  __($singular_name.' updated', 'yith_wc_tab_manager'),
-               5    =>  isset( $_GET['revision'] ) ? sprintf( __( 'Tab restored to version %s', 'yith_wc_tab_manager' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-               6    =>  __($singular_name.' published', 'yith_wc_tab_manager'),
-               7    =>  __($singular_name.' saved', 'yith_wc_tab_manager'),
-               8    =>  __($singular_name.' submitted', 'yith_wc_tab_manager'),
-               9    =>  __($singular_name.' ', 'yith_wc_tab_manager'),
-               10   =>  __($singular_name.' draft updated', 'yith_wc_tab_manager')
+               1    =>  __($singular_name.' updated','yith-woocommerce-tab-manager'),
+               2    =>  __('Custom field updated', 'yith-woocommerce-tab-manager'),
+               3    =>  __('Custom field deleted', 'yith-woocommerce-tab-manager'),
+               4    =>  __($singular_name.' updated', 'yith-woocommerce-tab-manager'),
+               5    =>  isset( $_GET['revision'] ) ? sprintf( __( 'Tab restored to version %s', 'yith-woocommerce-tab-manager' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+               6    =>  __($singular_name.' published', 'yith-woocommerce-tab-manager'),
+               7    =>  __($singular_name.' saved', 'yith-woocommerce-tab-manager'),
+               8    =>  __($singular_name.' submitted', 'yith-woocommerce-tab-manager'),
+               9    =>  __($singular_name.' ', 'yith-woocommerce-tab-manager'),
+               10   =>  __($singular_name.' draft updated', 'yith-woocommerce-tab-manager')
            );
 
 
@@ -448,7 +448,7 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
        foreach ($yith_tabs as $tab ){
 
            $tabs[$tab["id"]] = array(
-               'title'		=>	__( $tab['title'], 'yith_wc_tab_manager' ),
+               'title'		=>	__( $tab['title'], 'yith-woocommerce-tab-manager' ),
                'priority' 	=>	$tab['priority']+$priority,
                'callback' 	=>	array ( $this, 'put_content_tabs' )
            );
@@ -491,10 +491,10 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
     
     	$columns = apply_filters('yith_add_column_tab', array(
     			'cb' => '<input type="checkbox" />',
-    			'title' => __('Title', 'yith_wc_tab_manager'),
-    			'is_show' => __('Is Visible', 'yith_wc_tab_manager'),
-    			'tab_position' => __('Tab Position', 'yith_wc_tab_manager'),
-    			'date' => __('Date', 'yith_wc_tab_manager'),
+    			'title' => __('Title', 'yith-woocommerce-tab-manager'),
+    			'is_show' => __('Is Visible', 'yith-woocommerce-tab-manager'),
+    			'tab_position' => __('Tab Position', 'yith-woocommerce-tab-manager'),
+    			'date' => __('Date', 'yith-woocommerce-tab-manager'),
     	             )
                  ) ;
     

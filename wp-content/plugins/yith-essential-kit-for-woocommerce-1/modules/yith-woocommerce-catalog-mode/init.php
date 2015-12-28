@@ -2,10 +2,10 @@
 /*
 Plugin Name: YITH WooCommerce Catalog Mode
 Plugin URI: http://yithemes.com/themes/plugins/yith-woocommerce-catalog-mode/
-Description: YITH Woocommerce Catalog Mode allows you to disable shop functions.
-Author: Yithemes
+Description: YITH WooCommerce Catalog Mode allows you to disable shop functions.
+Author: YIThemes
 Text Domain: yith-woocommerce-catalog-mode
-Version: 1.2.0
+Version: 1.2.2
 Author URI: http://yithemes.com/
 */
 
@@ -34,7 +34,7 @@ function ywctm_install_free_admin_notice() {
 }
 
 if ( !defined( 'YWCTM_VERSION' ) ) {
-    define( 'YWCTM_VERSION', '1.2.0' );
+    define( 'YWCTM_VERSION', '1.2.2' );
 }
 
 if ( !defined( 'YWCTM_FREE_INIT' ) ) {
