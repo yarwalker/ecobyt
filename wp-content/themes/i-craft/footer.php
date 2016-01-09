@@ -18,7 +18,7 @@
 			</div>
 			<div class="site-info">
                 <div class="copyright">
-                	<?php esc_attr_e( 'Copyright &copy;', 'i-craft' ); ?>  <?php bloginfo( 'name' ); ?> <?php echo date('Y'); ?>
+                	<?php esc_attr_e( 'Copyright &copy;', 'i-craft' ); ?>  <?php bloginfo( 'name' ); ?>
                 </div>            
             	<!--div class="credit-info">
 					<a href="<?php echo esc_url( __( 'http://wordpress.org/', 'i-craft' ) ); ?>" title="<?php esc_attr_e( 'Semantic Personal Publishing Platform', 'i-craft' ); ?>">

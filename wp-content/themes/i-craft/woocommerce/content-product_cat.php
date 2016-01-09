@@ -57,8 +57,8 @@ $woocommerce_loop['loop'] ++;
 			 */
 			do_action( 'woocommerce_after_subcategory_title', $category );
 		?>
-		<?php do_action( 'woocommerce_after_subcategory', $category ); ?>
+
 	</a>
 
-	<?php //do_action( 'woocommerce_after_subcategory', $category ); ?>
+	<?php do_action( 'woocommerce_after_subcategory', $category ); ?>
 </li>

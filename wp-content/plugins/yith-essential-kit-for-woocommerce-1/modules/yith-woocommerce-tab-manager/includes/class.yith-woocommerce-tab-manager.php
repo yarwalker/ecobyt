@@ -361,16 +361,16 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
            $messages[$this->post_type_name] =   array (
 
                0    =>  '',
-               1    =>  __($singular_name.' updated','yith-woocommerce-tab-manager'),
+               1    =>  sprintf(__('%s updated','yith-woocommerce-tab-manager') , $singular_name ) ,
                2    =>  __('Custom field updated', 'yith-woocommerce-tab-manager'),
                3    =>  __('Custom field deleted', 'yith-woocommerce-tab-manager'),
-               4    =>  __($singular_name.' updated', 'yith-woocommerce-tab-manager'),
+               4    =>  sprintf(__('%s updated','yith-woocommerce-tab-manager') , $singular_name ) ,
                5    =>  isset( $_GET['revision'] ) ? sprintf( __( 'Tab restored to version %s', 'yith-woocommerce-tab-manager' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-               6    =>  __($singular_name.' published', 'yith-woocommerce-tab-manager'),
-               7    =>  __($singular_name.' saved', 'yith-woocommerce-tab-manager'),
-               8    =>  __($singular_name.' submitted', 'yith-woocommerce-tab-manager'),
-               9    =>  __($singular_name.' ', 'yith-woocommerce-tab-manager'),
-               10   =>  __($singular_name.' draft updated', 'yith-woocommerce-tab-manager')
+               6    =>  sprintf( __('%s published', 'yith-woocommerce-tab-manager' ), $singular_name ),
+               7    => sprintf( __('%s saved', 'yith-woocommerce-tab-manager' ), $singular_name ),
+               8    => sprintf( __('%s submitted', 'yith-woocommerce-tab-manager' ), $singular_name ),
+               9    => sprintf( __('%s', 'yith-woocommerce-tab-manager'), $singular_name ),
+               10   =>  sprintf( __('%s draft updated', 'yith-woocommerce-tab-manager'), $singular_name )
            );
 
 
@@ -387,7 +387,7 @@ if ( !class_exists( 'YITH_WC_Tab_Manager' ) ) {
     	$args	=	include_once( YWTM_INC . '/metabox/tab-metabox.php');
 
         if (!function_exists( 'YIT_Metabox' ) ) {
-    		require_once( 'plugin-fw/yit-plugin.php' );
+    		require_once( YWTM_DIR.'plugin-fw/yit-plugin.php' );
     	}
     	$metabox    =   YIT_Metabox('yit-tab-manager-setting');
     	$metabox->init($args);

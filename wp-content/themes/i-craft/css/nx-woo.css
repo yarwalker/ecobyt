@@ -312,9 +312,8 @@ p.demo_store{
 .woocommerce-page #content div.product div.images img,
 .woocommerce-page div.product div.images img{
 	display:block;
-	width: 60%;
+	width:100%;
 	height:auto;
-	margin: 0 auto;
 }
 
 .woocommerce #content div.product div.images div.thumbnails,
@@ -721,8 +720,6 @@ p.demo_store{
 .woocommerce ul.products li.product a,
 .woocommerce-page ul.products li.product a{
 	text-decoration:none;
-	display: inline-block;
-	margin-bottom: 2px;
 }
 
 .woocommerce ul.products li.product a img,
@@ -972,7 +969,7 @@ p.demo_store{
 .woocommerce-page a.button.alt,
 .woocommerce-page button.button.alt,
 .woocommerce-page input.button.alt{
-	background: #ededed; /*#ad74a2;*/
+	background:#ad74a2;
 }
 
 .woocommerce #content input.button.alt:hover,
@@ -985,7 +982,7 @@ p.demo_store{
 .woocommerce-page a.button.alt:hover,
 .woocommerce-page button.button.alt:hover,
 .woocommerce-page input.button.alt:hover{
-	background: #aeaeae;/*#ad74a2;*/
+	background:#ad74a2;
 }
 
 .woocommerce #content input.button.disabled,
@@ -2695,14 +2692,14 @@ p.demo_store{
 
 .woocommerce .widget_price_filter .price_slider_amount,
 .woocommerce-page .widget_price_filter .price_slider_amount{
-	text-align: left;
+	text-align:right;
 	line-height: 32px;
 	font-size: 14px;
 }
 
 .woocommerce .widget_price_filter .price_slider_amount .button,
 .woocommerce-page .widget_price_filter .price_slider_amount .button{
-	font-size: 1.0em;
+	font-size: 20px;
 	float:left;
 }
 
@@ -2790,8 +2787,8 @@ p.demo_store{
 
 .widget input.search-field {
 	width: 140px;
-	padding-top: 5px;
-	padding-bottom: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 @media (-webkit-min-device-pixel-ratio:2),

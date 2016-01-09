@@ -3,7 +3,7 @@
  * Plugin Name: YITH WooCommerce Colors and Labels Variations
  * Plugin URI: http://yithemes.com/
  * Description: YITH WooCommerce Ajax Colors and Labels Variations replaces the dropdown select of your variable products with Colors and Labels
- * Version: 1.2.2
+ * Version: 1.2.3
  * Author: Yithemes
  * Author URI: http://yithemes.com/
  * Text Domain: ywcl
@@ -11,7 +11,7 @@
  *
  * @author Yithemes
  * @package YITH WooCommerce Colors and Labels Variations
- * @version 1.2.2
+ * @version 1.2.3
  */
 /*  Copyright 2013  Your Inspiration Themes  (email : plugins@yithemes.com)
 
@@ -63,7 +63,7 @@ if ( ! defined( 'YITH_WCCL_DIR' ) ) {
 	define( 'YITH_WCCL_DIR', plugin_dir_path( __FILE__ ) );
 }
 if ( ! defined( 'YITH_WCCL_VERSION' ) ) {
-	define( 'YITH_WCCL_VERSION', '1.2.2' );
+	define( 'YITH_WCCL_VERSION', '1.2.3' );
 }
 
 function yith_wccl_constructor() {

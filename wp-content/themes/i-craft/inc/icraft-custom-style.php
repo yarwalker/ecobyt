@@ -23,7 +23,8 @@
 			$menu_font_size = "13";
 			$primary_color = "#95C837";
 
-			$primary_color = esc_attr(of_get_option('itrans_primary_color', '#dd3333'));
+			//$primary_color = esc_attr(of_get_option('itrans_primary_color', '#dd3333'));
+			$primary_color = esc_attr(get_theme_mod('primary_color', of_get_option('itrans_primary_color', '#dd3333')));
 						
 
 			echo '<style type="text/css">'. "\n";

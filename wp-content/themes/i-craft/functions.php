@@ -105,6 +105,19 @@ function icraft_setup() {
 	add_image_size( 'icraft-slider-thumb', 1200, 440, true ); //(cropped)	
 	add_image_size( 'icraft-single-thumb', 1200, 480, true ); //(cropped)
 	
+	
+	$icraft_defaults_bg = array(
+		'default-color'          => '#f3f1ed',
+		'default-image'          => get_template_directory_uri() . '/images/bg7.jpg',
+		'default-repeat'         => 'repeat',
+		'default-position-x'     => 'center',
+		'default-attachment'	 => 'fixed',
+		'default-size'	 => 'cover'
+	);		
+	
+	// Custom Background 
+	add_theme_support( 'custom-background', $icraft_defaults_bg );
+	
 
 	// This theme uses its own gallery styles.
 	add_filter( 'use_default_gallery_style', '__return_false' );
@@ -190,7 +203,8 @@ function icraft_scripts_styles() {
 	wp_enqueue_script( 'icraft-script', get_template_directory_uri() . '/js/functions.js', array( 'jquery' ), '2013-07-18', true );
 	
 	
-	$blog_layout = of_get_option('itrans_blog_layout');
+	//$blog_layout = of_get_option('itrans_blog_layout');
+	$blog_layout = get_theme_mod('blog_layout', of_get_option('itrans_blog_layout'));
 
 	// Add Source Sans Pro and Bitter fonts, used in the main stylesheet.
 	wp_enqueue_style( 'icraft-fonts', icraft_fonts_url(), array(), null );
@@ -227,7 +241,7 @@ function icraft_scripts_styles() {
 	
 	
 	wp_enqueue_style( 'itrans-extra-stylesheet', get_template_directory_uri() . '/css/extra-style.css', array(), '2014-03-11' );
-	$custom_css = htmlspecialchars_decode(of_get_option( 'itrans_extra_style'));
+	$custom_css = htmlspecialchars_decode( get_theme_mod('itrans_extra_style', of_get_option('itrans_extra_style')));
 	
 	if ( $custom_css ) {
 		wp_add_inline_style( 'itrans-extra-stylesheet', $custom_css );
@@ -244,7 +258,7 @@ add_filter( 'body_class', 'icraft_layout_body_class' );
 function icraft_layout_body_class( $classes ) {
 	// add 'class-name' to the $classes array
 	
-	if ( of_get_option( 'boxed_type') )
+	if ( get_theme_mod('wide_layout', of_get_option('boxed_type')) )
 	{
 		$classes[] = 'nx-wide';		
 	} else
@@ -252,7 +266,7 @@ function icraft_layout_body_class( $classes ) {
 		$classes[] = 'nx-boxed';
 	}
 	
-	if ( of_get_option( 'sidebar_side') )
+	if ( get_theme_mod('sidebar_side', of_get_option('sidebar_side')) )
 	{
 		$classes[] = 'nx-leftsidebar';		
 	}
@@ -372,7 +386,10 @@ add_filter( 'body_class', 'twocol_blog_body_class' );
 function twocol_blog_body_class( $classes ) {
 
 	$blog_layout = 'onecol';
-	$blog_layout = of_get_option ('itrans_blog_layout');
+	
+	//$blog_layout = of_get_option ('itrans_blog_layout');
+	$blog_layout = get_theme_mod('blog_layout', of_get_option('itrans_blog_layout'));
+	
 	if ( $blog_layout == 'twocol' ) {
 		// add 'class-name' to the $classes array
 		$classes[] = 'twocol-blog';
@@ -667,10 +684,12 @@ add_filter('excerpt_more', 'icraft_excerpt_more');
 define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/inc/' );
 require_once dirname( __FILE__ ) . '/inc/options-framework.php';
 
-// Loads options.php from child or parent theme
-$optionsfile = locate_template( 'options.php' );
-load_template( $optionsfile );
 
+/*-----------------------------------------------------------------------------------*/
+/*	Adding customizer with kirki 
+/*-----------------------------------------------------------------------------------*/ 
+include_once( dirname( __FILE__ ) . '/nx-customizer.php' );
+include_once( dirname( __FILE__ ) . '/inc/kirki/kirki.php' );
 
 // Remove WooCommerce Native Breadcrumb
 add_action( 'init', 'icraft_remove_wc_breadcrumbs' );
@@ -719,57 +738,56 @@ function icraft_register_required_plugins() {
         'id' => 'tgmpa', // Unique ID for hashing notices for multiple instances of TGMPA.
         'default_path' => '', // Default absolute path to pre-packaged plugins.
         'menu' => 'tgmpa-install-plugins', // Menu slug.
+		'parent_slug'  => 'themes.php',            // Parent menu slug.
+		'capability'   => 'edit_theme_options',    // Capability needed to view plugin install page, should be a capability associated with the parent menu used.		
         'has_notices' => true, // Show admin notices or not.
         'dismissable' => true, // If false, a user cannot dismiss the nag message.
         'dismiss_msg' => '', // If 'dismissable' is false, this message will be output at top of nag.
         'is_automatic' => false, // Automatically activate plugins after installation or not.
         'message' => '', // Message to output right before the plugins table.
-        'strings' => array(
-            'page_title' => __( 'Install Required Plugins', 'i-craft' ),
-            'menu_title' => __( 'Install Plugins', 'i-craft' ),
-            'installing' => __( 'Installing Plugin: %s', 'i-craft' ), // %s = plugin name.
-            'oops' => __( 'Something went wrong with the plugin API.', 'i-craft' ),
-            'notice_can_install_required' => _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.', 'i-craft' ), // %1$s = plugin name(s).
-            'notice_can_install_recommended' => _n_noop( 'This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.', 'i-craft' ), // %1$s = plugin name(s).
-            'notice_cannot_install' => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.', 'i-craft' ), // %1$s = plugin name(s).
-            'notice_can_activate_required' => _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.', 'i-craft' ), // %1$s = plugin name(s).
-            'notice_can_activate_recommended' => _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.', 'i-craft' ), // %1$s = plugin name(s).
-            'notice_cannot_activate' => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.', 'i-craft' ), // %1$s = plugin name(s).
-            'notice_ask_to_update' => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.', 'i-craft' ), // %1$s = plugin name(s).
-            'notice_cannot_update' => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.', 'i-craft' ), // %1$s = plugin name(s).
-            'install_link' => _n_noop( 'Begin installing plugin', 'Begin installing plugins', 'i-craft' ),
-            'activate_link' => _n_noop( 'Begin activating plugin', 'Begin activating plugins', 'i-craft' ),
-            'return' => __( 'Return to Required Plugins Installer', 'i-craft' ),
-            'plugin_activated' => __( 'Plugin activated successfully.', 'i-craft' ),
-            'complete' => __( 'All plugins installed and activated successfully. %s', 'i-craft' ), // %s = dashboard link.
-            'nag_type' => 'updated' // Determines admin notice type - can only be 'updated', 'update-nag' or 'error'.
-        )
     );
 
     tgmpa( $plugins, $config );
 
 }
 
-
-add_action('admin_notices', 'icraft_admin_notice');
-function icraft_admin_notice() {
+add_action('admin_notices', 'icraft_admin_notice2');
+function icraft_admin_notice2() {
     global $current_user ;
         $user_id = $current_user->ID;
         /* Check that the user hasn't already clicked to ignore the message */
-    if ( ! get_user_meta($user_id, 'icraft_ignore_notice') ) {
+    if ( ! get_user_meta($user_id, 'icraft_ignore_notice2') ) {
         echo '<div class="updated"><p><div style="line-height: 20px;">'; 
-        printf(__('Important : All the Theme Options in upcoming version (i-craft 1.1.3 and above) will be moved<br> to Customizer as per WordPress.org recommendation. Make sure you have PHP version 5.3 <br>or above and WordPress Version 4.0 or above before you upgarde. <br> <a href="%1$s">Dismiss this notice</a>'), '?icraft_notice_ignore=0');
+        printf(__('Important : All the <b>theme options are moved to Customizer</b> as per WordPress.org recommendation. <br> Go to menu <b>&#8220;Appearance&#8221; &raquo; &#8220;Customize&#8221;</b> for all theme settings. <br> <a href="%1$s">Dismiss this notice</a>', 'i-craft'), '?icraft_notice_ignore2=0');
         echo "</div></p></div>";
     }
 }
 
-add_action('admin_init', 'icraft_notice_ignore');
-function icraft_notice_ignore() {
+add_action('admin_init', 'icraft_notice_ignore2');
+function icraft_notice_ignore2() {
     global $current_user;
 	$user_id = $current_user->ID;
     /* If user clicks to ignore the notice, add that to their user meta */
-	if ( isset($_GET['icraft_notice_ignore']) && '0' == $_GET['icraft_notice_ignore'] ) {
-    	add_user_meta($user_id, 'icraft_ignore_notice', 'true', true);
+	if ( isset($_GET['icraft_notice_ignore2']) && '0' == $_GET['icraft_notice_ignore2'] ) {
+    	add_user_meta($user_id, 'icraft_ignore_notice2', 'true', true);
     }
 }
+/*
+function wplift_remove_image_sizes( $sizes) {
+	unset( $sizes['thumbnail']);
+	unset( $sizes['medium']);
+	unset( $sizes['large']);
+	return $sizes;
+}
+add_filter('intermediate_image_sizes_advanced', 'wplift_remove_image_sizes');*/
+
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 20);
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 10);
+function HB_woocommerce_template_dimensions(){ //Добавим функцию вызова панельки с размерами и весом
+	global $woocommerce, $post, $product;
+	$product->list_attributes();
+}
+add_action( 'woocommerce_single_product_summary', 'HB_woocommerce_template_dimensions', 15); //Поставим панельку после краткого описания
 ?>

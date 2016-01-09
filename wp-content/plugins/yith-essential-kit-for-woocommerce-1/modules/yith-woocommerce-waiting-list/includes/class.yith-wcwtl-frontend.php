@@ -29,6 +29,14 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 		protected static $instance;
 
 		/**
+		 * Current object product
+		 *
+		 * @var object
+		 * @since 1.0.0
+		 */
+		protected $current_product = false;
+
+		/**
 		 * Plugin version
 		 *
 		 * @var string
@@ -64,22 +72,33 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 			add_action( 'wp', array( $this, 'yith_waiting_submit' ), 100 );
 
 			// enqueue frontend js
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
 		}
 
 		/**
-		 * Enqueue frontend scripts and style
+		 * Register scripts frontend
 		 *
 		 * @access public
 		 * @since 1.0.0
 		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
-		public function enqueue_scripts() {
+		public function register_scripts(){
 
-			wp_enqueue_script( 'yith-wcwtl-frontend', YITH_WCWTL_ASSETS_URL . '/js/frontend.js', array( 'jquery' ), false, true );
+			wp_register_script( 'yith-wcwtl-frontend', YITH_WCWTL_ASSETS_URL . '/js/frontend.js', array( 'jquery'), YITH_WCWTL_VERSION, true );
 		}
 
-			/**
+		/**
+		 * Enqueue scripts and style
+		 *
+		 * @since 1.0.8
+		 * @access public
+		 * @author Francesco Licandro
+		 */
+		public function enqueue_scripts() {
+			wp_enqueue_script( 'yith-wcwtl-frontend' );
+		}
+
+        /**
 		 * Init and add action form to products
 		 *
 		 * @access public
@@ -89,15 +108,23 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 		public function add_form(){
 			global $post;
 
-			if( $post && get_post_type( $post->ID ) == 'product' ) {
+			if( get_post_type( $post->ID ) == 'product' && is_product() ) {
 
-				$product = wc_get_product( $post->ID );
+				$this->current_product = wc_get_product( $post->ID );
 
-				if ( $product->product_type == 'grouped' ) {
+				if ( $this->current_product->product_type == 'grouped' ) {
 					return;
 				}
 
-				add_action( 'woocommerce_stock_html', array( $this, 'output_form' ), 20, 3 );
+				// first enqueue scripts
+				$this->enqueue_scripts();
+
+				if( $this->current_product->product_type == 'variable' ){
+					add_action( 'woocommerce_stock_html', array( $this, 'output_form' ), 20, 3 );
+				}
+				else {
+					add_action( 'woocommerce_stock_html', array( $this, 'output_form' ), 20, 2 );
+				}
 			}
 		}
 
@@ -108,11 +135,16 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 		 * @since 1.0.0
 		 * @param string $html
 		 * @param int $availability
-		 * @param object $product
+		 * @param object | boolean $product
 		 * @return string
 		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
-		public function output_form( $html, $availability, $product ) {
+		public function output_form( $html, $availability, $product = false ) {
+
+			if( ! $product ) {
+				$product = $this->current_product;
+			}
+
 			return $html . $this->the_form( $product );
 		}
 
@@ -154,7 +186,7 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 
 			if( $product_type == 'simple' && ! $user->exists() ) {
 
-				$html .= '<form method="post" action="' . esc_url( $url ) . '" name="prova">';
+				$html .= '<form method="post" action="' . esc_url( $url ) . '">';
 				$html .= '<label for="yith-wcwtl-email">' . __( 'Email Address', 'yith-woocommerce-waiting-list' ) . '<input type="email" name="yith-wcwtl-email" id="yith-wcwtl-email" /></label>';
 				$html .= '<input type="submit" value="' . $label_button_add . '" class="button alt" />';
 				$html .= '</form>';
@@ -189,7 +221,7 @@ if( ! class_exists( 'YITH_WCWTL_Frontend' ) ) {
 
 			$user = wp_get_current_user();
 
-			if( ! ( isset( $_REQUEST[ YITH_WCWTL_META ] ) && is_numeric( $_REQUEST[ YITH_WCWTL_META ] ) && isset( $_REQUEST[ YITH_WCWTL_META . '-action' ] ) && wp_verify_nonce( $_REQUEST[ '_wpnonce' ], 'action_waitlist' ) ) ) {
+			if( ! ( isset( $_REQUEST[ YITH_WCWTL_META ] ) && is_numeric( $_REQUEST[ YITH_WCWTL_META ] ) && isset( $_REQUEST[ YITH_WCWTL_META . '-action' ] ) ) ) {
 				return;
 			}
 

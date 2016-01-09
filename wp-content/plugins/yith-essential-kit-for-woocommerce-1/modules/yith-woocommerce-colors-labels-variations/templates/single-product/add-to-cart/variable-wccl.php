@@ -4,7 +4,7 @@
  *
  * @author Your Inspiration Themes
  * @package YITH WooCommerce Colors and Labels Variations
- * @version 1.1.4
+ * @version 1.2.3
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -30,8 +30,9 @@ if ( function_exists('wc_attribute_label') ) {
 
 $attribute_keys = array_keys( $attributes );
 
-?>
-<form class="variations_form cart" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint( $product->id ); ?>" data-product_variations="<?php echo esc_attr( json_encode( $available_variations ) ) ?>">
+do_action( 'woocommerce_before_add_to_cart_form' ); ?>
+
+<form class="variations_form cart" method="post" enctype='multipart/form-data' data-product_id="<?php echo absint( $product->id ); ?>" data-product_variations="<?php echo htmlspecialchars( json_encode( $available_variations ) ) ?>" data-wccl="true">
     <?php do_action( 'woocommerce_before_variations_form' ); ?>
 
     <?php if ( empty( $available_variations ) && false !== $available_variations ) : ?>
@@ -111,13 +112,12 @@ $attribute_keys = array_keys( $attributes );
     <div class="single_variation_wrap" style="display:none;">
         <?php
         /**
-         * woocommerce_before_single_variation Hook
+         * woocommerce_before_single_variation Hook.
          */
         do_action( 'woocommerce_before_single_variation' );
 
         /**
          * woocommerce_single_variation hook. Used to output the cart button and placeholder for variation data.
-         *
          * @since 2.4.0
          * @hooked woocommerce_single_variation - 10 Empty div for variation data.
          * @hooked woocommerce_single_variation_add_to_cart_button - 20 Qty and cart button.
@@ -125,19 +125,16 @@ $attribute_keys = array_keys( $attributes );
         do_action( 'woocommerce_single_variation' );
 
         /**
-         * woocommerce_after_single_variation Hook
+         * woocommerce_after_single_variation Hook.
          */
         do_action( 'woocommerce_after_single_variation' );
         ?>
-
     </div>
 
     <?php do_action('woocommerce_after_add_to_cart_button'); ?>
-
     <?php endif; ?>
 
     <?php do_action( 'woocommerce_after_variations_form' ); ?>
-
 </form>
 
 <?php do_action('woocommerce_after_add_to_cart_form'); ?>

@@ -83,7 +83,8 @@ if (!function_exists('icraft_top_cart')) {
 add_filter( 'wp_nav_menu_items', 'icraft_add_loginout_link', 10, 2 );
 function icraft_add_loginout_link( $items, $args ) {
 		
-	$hide_login = of_get_option('hide_login');
+	//$hide_login = of_get_option('hide_login');
+	$hide_login = get_theme_mod('hide_login', of_get_option('hide_login'));
 		
 	if( empty($hide_login) ){	
 		if (is_user_logged_in() && $args->theme_location == 'primary') {

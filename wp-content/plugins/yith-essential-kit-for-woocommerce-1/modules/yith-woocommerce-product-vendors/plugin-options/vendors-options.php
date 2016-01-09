@@ -35,18 +35,18 @@ return apply_filters( 'yith_wpv_panel_vendors_options', array(
                 'type' => 'sectionend',
             ),
 
-             'vendors_order_start' => array(
+            'vendors_order_start'           => array(
                 'type' => 'sectionstart',
             ),
 
-            'vendors_order_title' => array(
+            'vendors_order_title'           => array(
                 'title' => __( 'Order management', 'yith_wc_product_vendors' ),
                 'type'  => 'title',
                 'desc'  => '',
                 'id'    => 'yith_wpv_vendors_orders_title'
             ),
 
-            'vendors_order_management' => array(
+            'vendors_order_management'      => array(
                 'title'   => __( 'Enable order management', 'yith_wc_product_vendors' ),
                 'type'    => 'checkbox',
                 'desc'    => __( 'If you enable this option, each vendor will be able to manage orders on his/her own products independently.', 'yith_wc_product_vendors' ),
@@ -62,7 +62,7 @@ return apply_filters( 'yith_wpv_panel_vendors_options', array(
                 'default' => 'yes'
             ),
 
-            'vendors_order_end' => array(
+            'vendors_order_end'             => array(
                 'type' => 'sectionend',
             ),
         )

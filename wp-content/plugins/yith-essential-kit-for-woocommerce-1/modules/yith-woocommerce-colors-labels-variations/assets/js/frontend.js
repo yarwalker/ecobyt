@@ -26,26 +26,6 @@
                 var t = $(this),
                     type = $(this).data('type');
 
-//                if( type != 'select' ) {
-//                    if( t.attr('name') == last_change ) {
-//
-//                        select_box = t.data('last_content');
-//                        select_box = select_box.insertAfter(t);
-//                        select_box.find('.select_option')
-//                            .off('click')
-//                            .on('click', function(e){
-//                                if( $(this).hasClass('selected') ) {
-//                                    t.val('').change();
-//                                    t.removeClass('selected');
-//                                } else {
-//                                    var value = $(this).data('value');
-//                                    var option = $(this).data('option');
-//
-//                                    t.append(option).val(option.val()).change();
-//                                    t.append(option).val(option.val()).change(); //do not remove the duplicated line
-//                                }
-//                            });
-//                    } else {
                 var select_box = $('<div />', {
                     'class': 'select_box_' + type + ' select_box ' + t.attr('name')
                 }).insertAfter(t);
@@ -90,8 +70,6 @@
                         }
                     }
                 });
-//                    }
-                //}
             }).filter(function () {
                     return $(this).data('type') != 'select'
                 }).hide();
@@ -103,9 +81,14 @@
 
             select.each(function () {
                 var value = $(this).val();
-                var options = $(this).siblings('.select_box')
-                    .find('.select_option')
-                    .removeClass('selected');
+                var options = $(this).next('.select_box'); // get next elem
+
+                // else get siblings
+                if( ! options.length ){
+                    options = $(this).siblings('.select_box');
+                }
+                // reset class
+                options = options.find('.select_option').removeClass('selected');
 
                 if (value) {
                     options

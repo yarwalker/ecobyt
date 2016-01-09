@@ -77,7 +77,6 @@ if ( ! defined( 'YITH_INFS_TEMPLATE_PATH' ) ) {
 	define( 'YITH_INFS_TEMPLATE_PATH', YITH_INFS_DIR . 'templates' );
 }
 
-
 if ( ! defined( 'YITH_INFS_ASSETS_URL' ) ) {
 	define( 'YITH_INFS_ASSETS_URL', YITH_INFS_URL . 'assets' );
 }

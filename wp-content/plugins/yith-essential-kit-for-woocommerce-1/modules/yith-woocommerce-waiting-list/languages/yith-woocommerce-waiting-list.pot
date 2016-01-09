@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Waiting List\n"
-"POT-Creation-Date: 2015-11-02 10:12+0100\n"
+"POT-Creation-Date: 2016-01-04 15:41+0100\n"
 "PO-Revision-Date: 2015-04-22 16:20+0100\n"
 "Last-Translator: \n"
 "Language-Team: Yithemes <plugins@yithemes.com>\n"
@@ -57,25 +57,25 @@ msgstr ""
 msgid "A product you are waiting for is back in stock"
 msgstr ""
 
-#: includes/class.yith-wcwtl-frontend.php:158
+#: includes/class.yith-wcwtl-frontend.php:190
 msgid "Email Address"
 msgstr ""
 
-#: includes/class.yith-wcwtl-frontend.php:197
+#: includes/class.yith-wcwtl-frontend.php:229
 msgid ""
 "You must provide a valid email address to join the waiting list of this "
 "product"
 msgstr ""
 
-#: includes/class.yith-wcwtl-frontend.php:220
+#: includes/class.yith-wcwtl-frontend.php:252
 msgid "You have already registered for this waiting list"
 msgstr ""
 
-#: includes/class.yith-wcwtl-frontend.php:227
+#: includes/class.yith-wcwtl-frontend.php:259
 msgid "You have been removed from the waiting list for this product"
 msgstr ""
 
-#: includes/class.yith-wcwtl-frontend.php:230
+#: includes/class.yith-wcwtl-frontend.php:262
 msgid "An error has occurred. Please try again."
 msgstr ""
 

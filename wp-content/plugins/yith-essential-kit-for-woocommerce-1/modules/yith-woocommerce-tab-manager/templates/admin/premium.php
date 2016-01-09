@@ -302,6 +302,22 @@
             </div>
         </div>
     </div>
+    <div class="section section-odd clear" style="background: url(<?php echo YWTM_ASSETS_URL ?>/images/06-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YWTM_ASSETS_URL ?>/images/06-icon.png" alt="" />
+                    <h2><?php _e( 'WooCommerce tabs', 'yith-woocommerce-tab-manager' );?></h2>
+                </div>
+                <p>
+                    <?php echo sprintf( __('Edit or remove %1$s"Reviews"%2$s and %1$s"Description"%2$s tabs that WooCommerce adds defaultly in every product of the shop. In this way, you will have the full control of every detail of the pages, shaping them as you want.', 'yith-woocommerce-tab-manager'), '<b>','</b>' );?>
+                </p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YWTM_ASSETS_URL ?>/images/06.png" alt="" />
+            </div>
+        </div>
+    </div>
     <div class="section section-cta section-odd">
         <div class="landing-container">
             <div class="premium-cta">

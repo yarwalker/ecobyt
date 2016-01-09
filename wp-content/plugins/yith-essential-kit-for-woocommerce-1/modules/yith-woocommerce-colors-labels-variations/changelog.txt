@@ -1,3 +1,8 @@
+=== 1.2.3 ===
+Added: Ready to WooCommerce 2.5
+Updated: Template file variable-wccl.php
+Updated: Plugin Core
+
 === 1.2.2 ===
 Updated: Plugin Core
 

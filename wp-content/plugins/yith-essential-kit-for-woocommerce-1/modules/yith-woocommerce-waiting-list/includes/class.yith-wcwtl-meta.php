@@ -78,7 +78,7 @@ if ( ! class_exists( 'YITH_WCWTL_Meta' ) ) {
 		 * @author Francesco Licandro <francesco.licandro@yithemes.com>
 		 */
 		public function enqueue_scripts(){
-			wp_enqueue_script( 'yith-waitlist-metabox', YITH_WCWTL_ASSETS_URL . '/js/metabox.js', array( 'jquery' ), false, true );
+			wp_enqueue_script( 'yith-waitlist-metabox', YITH_WCWTL_ASSETS_URL . '/js/metabox.js', array( 'jquery' ), YITH_WCWTL_VERSION, true );
 
 			wp_localize_script( 'yith-waitlist-metabox', 'yith_wcwtl_meta', array(
 				'ajaxurl'   => admin_url( 'admin-ajax.php' )

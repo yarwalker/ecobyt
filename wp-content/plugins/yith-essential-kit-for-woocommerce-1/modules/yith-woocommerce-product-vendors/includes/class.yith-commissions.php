@@ -769,8 +769,11 @@ if ( ! class_exists( 'YITH_Commissions' ) ) {
             // Check
             $get_item_amount = 'yes' == get_option( 'yith_wpv_include_coupon' ) ? 'get_item_total' : 'get_item_subtotal';
 
+            // Get item amount params
+            $include_tax = apply_filters( 'yith_wcmv_include_tax_in_commissions', 'no' == get_option( 'yith_wpv_include_tax', 'no' ) ? false : true );
+
             // Retrieve the real amount of single item, with right discounts applied and without taxes
-            $line_total = (float) $order->$get_item_amount( $item, false, false ) * $item['qty'];
+            $line_total = (float) $order->$get_item_amount( $item, $include_tax, false ) * $item['qty'];
 
             // If total is 0 after discounts then go no further
             if ( ! $line_total ) {

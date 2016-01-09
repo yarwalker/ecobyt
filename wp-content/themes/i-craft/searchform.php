@@ -1,14 +1,14 @@
 <?php
 
 $normal_search = 0;
-$normal_search = of_get_option('normal_search', 0);
-
+//$normal_search = of_get_option('normal_search', 0);
+$normal_search = get_theme_mod('normal_search', of_get_option('normal_search'));
 
 ?>
 <form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 	<label>
 		<span class="screen-reader-text"><?php echo __( 'Search for:', 'i-craft' ) ?></span>
-		<input type="search" class="search-field" placeholder="<?php echo __( 'Поиск...', 'i-craft' ) ?>" value="<?php echo esc_attr(get_search_query()) ?>" name="s" title="<?php echo __( 'Search for:', 'i-craft' ) ?>" />
+		<input type="search" class="search-field" placeholder="<?php echo __( 'Search...', 'i-craft' ) ?>" value="<?php echo esc_attr(get_search_query()) ?>" name="s" title="<?php echo __( 'Search for:', 'i-craft' ) ?>" />
 	</label>
     <?php if($normal_search == 0) { ?>
     <?php echo '<input type="hidden" value="product" name="post_type" id="post_type" />'; ?>

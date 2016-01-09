@@ -19,13 +19,7 @@ if ( ! class_exists ( 'YITH_WCMG_Frontend' ) ) {
      * @since 1.0.0
      */
     class YITH_WCMG_Frontend {
-        /**
-         * Plugin version
-         *
-         * @var string
-         * @since 1.0.0
-         */
-        public $version;
+
 
         /**
          * Constructor
@@ -33,15 +27,14 @@ if ( ! class_exists ( 'YITH_WCMG_Frontend' ) ) {
          * @access public
          * @since  1.0.0
          */
-        public function __construct ( $version ) {
-            $this->version = $version;
+        public function __construct ( ) {
 
             // add the action only when the loop is initializate
             add_action ( 'template_redirect', array ( $this, 'render' ) );
         }
 
         public function render () {
-            if ( yith_wcmg_is_enabled () && ! $this->is_video_featured_enabled () ) {
+            if ( yith_wcmg_is_enabled () && ! apply_filters ( 'yith_wczm_featured_video_enabled', false ) ) {
                 //change the templates
                 remove_action ( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
                 remove_action ( 'woocommerce_product_thumbnails', 'woocommerce_show_product_thumbnails', 20 );
@@ -100,15 +93,29 @@ if ( ! class_exists ( 'YITH_WCMG_Frontend' ) ) {
 
             $suffix = defined ( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-            wp_register_script ( 'yith-magnifier-slider', YITH_WCMG_URL . 'assets/js/jquery.carouFredSel' . $suffix . '.js', array (
-                'jquery',
-                'jquery-migrate',
-            ), '6.2.1', true );
-            wp_register_script ( 'yith-magnifier', YITH_WCMG_URL . 'assets/js/yith_magnifier' . $suffix . '.js', array ( 'jquery' ), $this->version, true );
-            wp_register_script ( 'yith_wcmg_frontend', YITH_WCMG_URL . 'assets/js/frontend' . $suffix . '.js', array (
-                'jquery',
-                'yith-magnifier',
-            ), $this->version, true );
+            wp_register_script ( 'yith-magnifier-slider',
+                YITH_WCMG_URL . 'assets/js/jquery.carouFredSel' . $suffix . '.js',
+                array (
+                    'jquery',
+                    'jquery-migrate',
+                ),
+                YITH_YWZM_VERSION,
+                true );
+
+            wp_register_script ( 'yith-magnifier',
+                YITH_WCMG_URL . 'assets/js/yith_magnifier' . $suffix . '.js',
+                array ( 'jquery' ),
+                YITH_YWZM_VERSION,
+                true );
+
+            wp_register_script ( 'yith_wcmg_frontend',
+                YITH_WCMG_URL . 'assets/js/frontend' . $suffix . '.js',
+                array (
+                    'jquery',
+                    'yith-magnifier',
+                ),
+                YITH_YWZM_VERSION,
+                true );
 
             wp_register_style ( 'yith-magnifier', YITH_WCMG_URL . 'assets/css/yith_magnifier.css' );
 
@@ -121,18 +128,18 @@ if ( ! class_exists ( 'YITH_WCMG_Frontend' ) ) {
 
                 $css = file_exists ( get_stylesheet_directory () . '/woocommerce/yith_magnifier.css' ) ? get_stylesheet_directory_uri () . '/woocommerce/yith_magnifier.css' : YITH_WCMG_URL . 'assets/css/frontend.css';
                 wp_enqueue_style ( 'yith_wcmg_frontend', $css );
-/*
-                $append_text_css = '.yith_magnifier_zoom_wrap::after {
-                    content: "' . __ ( "Roll over image to zoom in", "yith-woocommerce-zoom-magnifier" ) . '";
-                    margin: 0 auto;
-                    display: inline-block;
-                    text-align:center;
-                    font-size: 10px;
-                    }
-                ';
+                /*
+                    $append_text_css = '.yith_magnifier_zoom_wrap::after {
+                        content: "' . __ ( "Roll over image to zoom in", "yith-woocommerce-zoom-magnifier" ) . '";
+                        margin: 0 auto;
+                        display: inline-block;
+                        text-align:center;
+                        font-size: 10px;
+                        }
+                    ';
 
-                wp_add_inline_style ( 'yith_wcmg_frontend', $append_text_css );
-*/
+                    wp_add_inline_style ( 'yith_wcmg_frontend', $append_text_css );
+                */
             }
         }
 
@@ -154,21 +161,5 @@ if ( ! class_exists ( 'YITH_WCMG_Frontend' ) ) {
             return $data;
         }
 
-        /**
-         * Detect if the featured video is enabled
-         */
-        public function is_video_featured_enabled () {
-            global $post;
-            if ( ! isset( $post->ID ) ) {
-                return;
-            }
-
-            $featured_video = get_post_meta ( $post->ID, '_video_url', true );
-            if ( ! empty( $featured_video ) ) {
-                return true;
-            } else {
-                return false;
-            }
-        }
     }
 }

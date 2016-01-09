@@ -18,6 +18,8 @@ if ( ! class_exists( 'YITH_JetPack' ) ) {
 
         const MODULE_LIST_OPTION_NAME = 'yith_jetpack_inserted_modules';
 
+        const MODULE_LIST_ACTIVATION_HOOK_OPTION_NAME = 'yith_jetpack_activation_hook';
+
         const MODULES_LIST_QUERY_VALUE = 'yith-jetpack-modules';
 
         const PLUGIN_LIST_HIDE_NOTICE_OPTION_NAME = 'yith_jetpack_m_hide_notice';
@@ -36,6 +38,8 @@ if ( ! class_exists( 'YITH_JetPack' ) ) {
         protected $_deactivated_plugin_option_name = null;
 
         protected $_module_list_option_name = null;
+
+        protected $_module_activation_hook_option_name = null;
 
         protected $_modules_list_query_value = null;
 
@@ -61,6 +65,7 @@ if ( ! class_exists( 'YITH_JetPack' ) ) {
             $this->_activate_module_option_name  = self::ACTIVATED_MODULES_OPTION_BASE_NAME.$this->$index;
             $this->_deactivated_plugin_option_name  = self::DEACTIVATED_PLUGIN_OPTION_NAME.$this->$index;
             $this->_module_list_option_name  = self::MODULE_LIST_OPTION_NAME.$this->$index;
+            $this->_module_activation_hook_option_name = self::MODULE_LIST_ACTIVATION_HOOK_OPTION_NAME.$this->$index;
             $this->_modules_list_query_value  = self::MODULES_LIST_QUERY_VALUE.$this->$index;
             $this->_plugin_list_hide_notice_option_name = self::PLUGIN_LIST_HIDE_NOTICE_OPTION_NAME.$this->$index;
 
@@ -327,9 +332,14 @@ if ( ! class_exists( 'YITH_JetPack' ) ) {
             $active_modules = $this->active_modules();
             foreach ( $modules as $module => $args ) {
                 if ( in_array( $module, array_keys( $active_modules ) ) ) {
-                    include_once( $this->module_path( $module, $args['file'] ) );
-                }
 
+                    $path = $this->module_path( $module, $args['file'] );
+
+                    include_once( $path );
+
+                    $this->register_activation_hook( $path ) ;
+
+                }
             }
 
         }
@@ -494,17 +504,22 @@ if ( ! class_exists( 'YITH_JetPack' ) ) {
                     foreach ( $this->_active_modules as $key => $item ) {
                         $is_recommended = in_array( $key, $recommended_modules_list );
                         if ( $is_recommended ) {
+                            $this->register_deactivation_hook( $this->module_path( $key , $item['file'] ) );
                             unset( $this->_active_modules[$key] );
                         }
                     }
                 }
                 else {
+                    foreach ( $this->_active_modules as $key => $item ) {
+                        $this->register_deactivation_hook( $this->module_path( $key , $item['file'] ) );
+                    }
                     $this->_active_modules = array();
                 }
 
             }
             else {
                 if ( isset( $this->_active_modules[$module] ) ) {
+                    $this->register_deactivation_hook( $this->module_path( $module , $this->_active_modules[$module]['file'] ) );
                     unset( $this->_active_modules[$module] );
                 }
             }
@@ -747,6 +762,45 @@ if ( ! class_exists( 'YITH_JetPack' ) ) {
              if( isset($_GET['page']) && $_GET['page']==$this->_modules_list_query_value) {
                  wp_enqueue_style( 'yit-layout', YJP_ASSETS_URL . '/css/list-layout.css' );
              }
+        }
+
+        /**
+         * Activation Hook
+         *
+         * call activation action
+         *
+         * @author   Andrea Frascaspata <andrea.frascaspata@yithemes.it>
+         */
+        public function register_activation_hook( $path  ) {
+
+            $activation_list =  get_option( $this->_module_activation_hook_option_name, array() );
+            $file = plugin_basename( $path );
+            if ( ! in_array( $file, array_keys( $activation_list ) ) ) {
+
+                do_action( 'activate_' . $file );
+
+                $activation_list[$file] = true;
+                update_option( $this->_module_activation_hook_option_name , $activation_list);
+
+            }
+
+        }
+
+        /**
+         * Deactivation Hook
+         *
+         * call deactivation action
+         *
+         * @author   Andrea Frascaspata <andrea.frascaspata@yithemes.it>
+         */
+        public function register_deactivation_hook( $path ) {
+
+            $activation_list =  get_option( $this->_module_activation_hook_option_name, array() );
+            $file = plugin_basename( $path );
+            do_action( 'deactivate_' . $file );
+
+            unset( $activation_list[$file] );
+            update_option( $this->_module_activation_hook_option_name , $activation_list);
         }
 
     }

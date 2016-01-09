@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: YITH WooCommerce Tab Manager\n"
-"POT-Creation-Date: 2015-11-10 16:35+0100\n"
-"PO-Revision-Date: 2015-11-10 16:35+0100\n"
+"POT-Creation-Date: 2016-01-05 11:28+0100\n"
+"PO-Revision-Date: 2016-01-05 11:28+0100\n"
 "Last-Translator: \n"
 "Language-Team: Your Inspiration Themes <plugins@yithemes.com>\n"
 "Language: en\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ../includes/class.yith-woocommerce-tab-manager.php:179
 #: ../includes/class.yith-woocommerce-tab-manager.php:232
-#: ../includes/metabox/tab-metabox.php:16
+#: ../includes/metabox/tab-metabox.php:15
 msgid "Settings"
 msgstr ""
 
@@ -96,7 +96,8 @@ msgstr ""
 
 #: ../includes/class.yith-woocommerce-tab-manager.php:364
 #: ../includes/class.yith-woocommerce-tab-manager.php:367
-msgid " updated"
+#, php-format
+msgid "%s updated"
 msgstr ""
 
 #: ../includes/class.yith-woocommerce-tab-manager.php:365
@@ -113,23 +114,28 @@ msgid "Tab restored to version %s"
 msgstr ""
 
 #: ../includes/class.yith-woocommerce-tab-manager.php:369
-msgid " published"
+#, php-format
+msgid "%s published"
 msgstr ""
 
 #: ../includes/class.yith-woocommerce-tab-manager.php:370
-msgid " saved"
+#, php-format
+msgid "%s saved"
 msgstr ""
 
 #: ../includes/class.yith-woocommerce-tab-manager.php:371
-msgid " submitted"
+#, php-format
+msgid "%s submitted"
 msgstr ""
 
 #: ../includes/class.yith-woocommerce-tab-manager.php:372
-msgid " "
+#, php-format
+msgid "%s"
 msgstr ""
 
 #: ../includes/class.yith-woocommerce-tab-manager.php:373
-msgid " draft updated"
+#, php-format
+msgid "%s draft updated"
 msgstr ""
 
 #: ../includes/class.yith-woocommerce-tab-manager.php:494
@@ -148,27 +154,27 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: ../includes/metabox/tab-metabox.php:10
+#: ../includes/metabox/tab-metabox.php:9
 msgid "Tab Settings"
 msgstr ""
 
-#: ../includes/metabox/tab-metabox.php:19
+#: ../includes/metabox/tab-metabox.php:18
 msgid "Content Tab"
 msgstr ""
 
-#: ../includes/metabox/tab-metabox.php:24
+#: ../includes/metabox/tab-metabox.php:23
 msgid "Enable Tab"
 msgstr ""
 
-#: ../includes/metabox/tab-metabox.php:25
+#: ../includes/metabox/tab-metabox.php:24
 msgid "Show Tab in frontend"
 msgstr ""
 
-#: ../includes/metabox/tab-metabox.php:30
+#: ../includes/metabox/tab-metabox.php:29
 msgid "Tab Priority"
 msgstr ""
 
-#: ../includes/metabox/tab-metabox.php:31
+#: ../includes/metabox/tab-metabox.php:30
 msgid "The plugin tabs are displayed after the WooCommerce Tabs"
 msgstr ""
 
@@ -222,18 +228,18 @@ msgstr ""
 msgid "Enable plugin"
 msgstr ""
 
-#: ../templates/admin/premium.php:198 ../templates/admin/premium.php:309
+#: ../templates/admin/premium.php:198 ../templates/admin/premium.php:325
 #, php-format
 msgid ""
 "Upgrade to %1$spremium version%2$s of %1$sYITH WooCommerce Tab Manager%2$s "
 "to benefit from all features!"
 msgstr ""
 
-#: ../templates/admin/premium.php:202 ../templates/admin/premium.php:313
+#: ../templates/admin/premium.php:202 ../templates/admin/premium.php:329
 msgid "UPGRADE"
 msgstr ""
 
-#: ../templates/admin/premium.php:203 ../templates/admin/premium.php:314
+#: ../templates/admin/premium.php:203 ../templates/admin/premium.php:330
 msgid "to the premium version"
 msgstr ""
 
@@ -318,4 +324,17 @@ msgid ""
 "shortcode you need.\n"
 "                    %2$sYou do not need anything more to achieve the best "
 "results!%3$s"
+msgstr ""
+
+#: ../templates/admin/premium.php:310
+msgid "WooCommerce tabs"
+msgstr ""
+
+#: ../templates/admin/premium.php:313
+#, php-format
+msgid ""
+"Edit or remove %1$s\"Reviews\"%2$s and %1$s\"Description\"%2$s tabs that "
+"WooCommerce adds defaultly in every product of the shop. In this way, you "
+"will have the full control of every detail of the pages, shaping them as you "
+"want."
 msgstr ""

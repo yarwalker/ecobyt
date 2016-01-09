@@ -12,6 +12,7 @@ if ( ! defined( 'YITH_WCAN' ) ) {
 } // Exit if accessed directly
 
 if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
+
         /**
          * YITH WooCommerce Ajax Navigation Widget
          *
@@ -19,10 +20,20 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
          */
     class YITH_WCAN_Navigation_Widget extends WP_Widget {
 
+        /**
+         * YITH Brands Taxonomy Name
+         */
         public $brand_taxonomy = '';
 
+        /**
+         * Use to print or not widget
+         */
+        public $found = false;
+
         function __construct() {
-            $widget_ops  = array( 'classname' => 'yith-woo-ajax-navigation woocommerce widget_layered_nav', 'description' => __( 'Filter the product list without reloading the page', 'yith-woocommerce-ajax-navigation' ) );
+            $classname = 'yith-woocommerce-ajax-product-filter yith-woo-ajax-navigation woocommerce widget_layered_nav';
+            $classname .= 'checkboxes' == yith_wcan_get_option( 'yith_wcan_ajax_shop_filter_style', 'standard' ) ? ' with-checkbox' : '';
+            $widget_ops  = array( 'classname' => $classname, 'description' => __( 'Filter the product list without reloading the page', 'yith-woocommerce-ajax-navigation' ) );
             $control_ops = array( 'width' => 400, 'height' => 350 );
             add_action('wp_ajax_yith_wcan_select_type', array( $this, 'ajax_print_terms') );
             parent::__construct( 'yith-woo-ajax-navigation', _x( 'YITH WooCommerce Ajax Product Filter', 'Admin: Widget Title', 'yith-woocommerce-ajax-navigation' ), $widget_ops, $control_ops );
@@ -66,20 +77,19 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                 $taxonomy = $woocommerce->attribute_taxonomy_name( $instance['attribute'] );
             }
 
+            $taxonomy        = apply_filters( 'yith_wcan_get_terms_params', $taxonomy, $instance, 'taxonomy_name' );
+            $terms_type_list = apply_filters( 'yith_wcan_get_terms_params', $terms_type_list, $instance, 'terms_type' );
+
             if ( ! taxonomy_exists( $taxonomy ) ) {
                 return;
             }
 
-            $taxonomy        = apply_filters( 'yith_wcan_get_terms_params', $taxonomy, $instance, 'taxonomy_name' );
-            $terms_type_list = apply_filters( 'yith_wcan_get_terms_params', $terms_type_list, $instance, 'terms_type' );
-
             $terms = yit_get_terms( $terms_type_list, $taxonomy, $instance );
 
             if ( count( $terms ) > 0 ) {
-
                 ob_start();
 
-                $found = false;
+                $this->found = false;
 
                 echo $before_widget;
 
@@ -92,7 +102,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                 // Force found when option is selected - do not force found on taxonomy attributes
                 if ( ! $_attributes_array || ! is_tax( $_attributes_array ) ) {
                     if ( is_array( $_chosen_attributes ) && array_key_exists( $taxonomy, $_chosen_attributes ) ) {
-                        $found = true;
+                        $this->found = true;
                     }
                 }
 
@@ -127,7 +137,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             }
 
                             if ( $count > 0 && $current_term !== $term_param ) {
-                                $found = true;
+                                $this->found = true;
                             }
 
                             if ( ( ( $terms_type_list == 'hierarchical' || ( $terms_type_list == 'tags' && $instance['display'] == 'hierarchical' ) ) || ! yit_term_has_child( $term, $taxonomy ) ) && $count == 0 && ! $option_is_set ) {
@@ -146,7 +156,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             $count = sizeof( array_intersect( $_products_in_term, $woocommerce->query->unfiltered_product_ids ) );
 
                             if ( $count > 0 ) {
-                                $found = true;
+                                $this->found = true;
                             }
 
                         }
@@ -206,10 +216,30 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                         }
 
                         if ( isset( $_GET[ $this->brand_taxonomy ] ) ) {
-                            $brands = get_term_by( 'name', $_GET[ $this->brand_taxonomy ], $this->brand_taxonomy );
+                            $brands = get_term_by( 'slug', $_GET[ $this->brand_taxonomy ], $this->brand_taxonomy );
                             if( $brands->term_id != $term->term_id ){
-                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->name ), $link );
+                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->slug ), $link );
                             }
+                        }
+
+                        if( isset( $_GET['product_cat'] ) ){
+                            $categories_filter_operator = 'and' == $query_type ? '+' : ',';
+                            $_chosen_categories = explode( $categories_filter_operator, urlencode( $_GET['product_cat'] ) );
+                            $link  = add_query_arg(
+                                'product_cat',
+                                implode( apply_filters( 'yith_wcan_categories_filter_operator', $categories_filter_operator, $display_type ), $_chosen_categories ),
+                                $link
+                            );
+                        }
+
+                        if( isset( $_GET['product_cat'] ) ){
+                            $categories_filter_operator = 'and' == $query_type ? '+' : ',';
+                            $_chosen_categories = explode( $categories_filter_operator, urlencode( $_GET['product_cat'] ) );
+                            $link  = add_query_arg(
+                                'product_cat',
+                                implode( apply_filters( 'yith_wcan_categories_filter_operator', $categories_filter_operator, $display_type ), $_chosen_categories ),
+                                $link
+                            );
                         }
 
                         $check_for_current_widget = isset( $_chosen_attributes[$taxonomy] ) && is_array( $_chosen_attributes[$taxonomy]['terms'] ) && in_array( $term->term_id, $_chosen_attributes[$taxonomy]['terms'] );
@@ -226,7 +256,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                         }
 
                         else {
-                            $class = ( ( $terms_type_list == 'hierarchical' || ( $terms_type_list == 'tags' && $instance['display'] == 'hierarchical' ) ) && yit_term_is_child( $term ) ) ? "class='{$is_child_class}'" : '';
+                            $class = ( ( $terms_type_list == 'hierarchical' || $terms_type_list == 'tags' ) && yit_term_is_child( $term ) ) ? "class='{$is_child_class}'" : '';
                             $link  = add_query_arg( $arg, implode( apply_filters( 'yith_wcan_list_filter_operator', ',', $display_type ), $current_filter ), $link );
                         }
 
@@ -300,7 +330,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             }
 
                             if ( $count > 0 && $current_term !== $term->term_id ) {
-                                $found = true;
+                                $this->found = true;
                             }
 
                             if ( ( $terms_type_list != 'hierarchical' || ! yit_term_has_child( $term, $taxonomy ) ) && $count == 0 && ! $option_is_set ) {
@@ -319,7 +349,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             $count = sizeof( array_intersect( $_products_in_term, $woocommerce->query->unfiltered_product_ids ) );
 
                             if ( $count > 0 ) {
-                                $found = true;
+                                $this->found = true;
                             }
 
                         }
@@ -381,8 +411,18 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                         if ( isset( $_GET[ $this->brand_taxonomy ] ) ) {
                             $brands = get_term_by( 'name', $_GET[ $this->brand_taxonomy ], $this->brand_taxonomy );
                             if( $brands->term_id != $term->term_id ){
-                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->name ), $link );
+                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->slug ), $link );
                             }
+                        }
+
+                        if( isset( $_GET['product_cat'] ) ){
+                            $categories_filter_operator = 'and' == $query_type ? '+' : ',';
+                            $_chosen_categories = explode( $categories_filter_operator, urlencode( $_GET['product_cat'] ) );
+                            $link  = add_query_arg(
+                                'product_cat',
+                                implode( apply_filters( 'yith_wcan_categories_filter_operator', $categories_filter_operator, $display_type ), $_chosen_categories ),
+                                $link
+                            );
                         }
 
                         // Current Filter = this widget
@@ -465,7 +505,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             }
 
                             if ( $count > 0 && $current_term !== $term->term_id ) {
-                                $found = true;
+                                $this->found = true;
                             }
 
                             if ( $count == 0 && ! $option_is_set ) {
@@ -484,7 +524,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             $count = sizeof( array_intersect( $_products_in_term, $woocommerce->query->unfiltered_product_ids ) );
 
                             if ( $count > 0 ) {
-                                $found = true;
+                                $this->found = true;
                             }
 
                         }
@@ -546,8 +586,18 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                         if ( isset( $_GET[ $this->brand_taxonomy ] ) ) {
                             $brands = get_term_by( 'name', $_GET[ $this->brand_taxonomy ], $this->brand_taxonomy );
                             if( $brands->term_id != $term->term_id ){
-                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->name ), $link );
+                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->slug ), $link );
                             }
+                        }
+
+                        if( isset( $_GET['product_cat'] ) ){
+                            $categories_filter_operator = 'and' == $query_type ? '+' : ',';
+                            $_chosen_categories = explode( $categories_filter_operator, urlencode( $_GET['product_cat'] ) );
+                            $link  = add_query_arg(
+                                'product_cat',
+                                implode( apply_filters( 'yith_wcan_categories_filter_operator', $categories_filter_operator, $display_type ), $_chosen_categories ),
+                                $link
+                            );
                         }
 
                         // Current Filter = this widget
@@ -628,7 +678,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             }
 
                             if ( $count > 0 && $current_term !== $term->term_id ) {
-                                $found = true;
+                                $this->found = true;
                             }
 
                             if ( $count == 0 && ! $option_is_set ) {
@@ -647,7 +697,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                             $count = sizeof( array_intersect( $_products_in_term, $woocommerce->query->unfiltered_product_ids ) );
 
                             if ( $count > 0 ) {
-                                $found = true;
+                                $this->found = true;
                             }
 
                         }
@@ -709,8 +759,18 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
                         if ( isset( $_GET[ $this->brand_taxonomy ] ) ) {
                             $brands = get_term_by( 'name', $_GET[ $this->brand_taxonomy ], $this->brand_taxonomy );
                             if( $brands->term_id != $term->term_id ){
-                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->name ), $link );
+                                $link = add_query_arg( $this->brand_taxonomy, urlencode( $brands->slug ), $link );
                             }
+                        }
+
+                        if( isset( $_GET['product_cat'] ) ){
+                            $categories_filter_operator = 'and' == $query_type ? '+' : ',';
+                            $_chosen_categories = explode( $categories_filter_operator, urlencode( $_GET['product_cat'] ) );
+                            $link  = add_query_arg(
+                                'product_cat',
+                                implode( apply_filters( 'yith_wcan_categories_filter_operator', $categories_filter_operator, $display_type ), $_chosen_categories ),
+                                $link
+                            );
                         }
 
                         // Current Filter = this widget
@@ -770,7 +830,7 @@ if ( ! class_exists( 'YITH_WCAN_Navigation_Widget' ) ) {
 
                 echo $after_widget;
 
-                if ( ! apply_filters( 'yith_wcan_found_taxonomy', $found ) ) {
+                if ( ! $this->found ) {
                     ob_end_clean();
                     echo substr( $before_widget, 0, strlen( $before_widget ) - 1 ) . ' style="display:none">' . $after_widget;
                 }

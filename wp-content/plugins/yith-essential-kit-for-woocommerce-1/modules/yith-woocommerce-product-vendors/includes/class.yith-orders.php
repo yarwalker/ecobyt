@@ -56,9 +56,6 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
 
             add_filter ( 'woocommerce_attribute_label', array ( $this, 'commissions_attribute_label' ), 10, 3 );
 
-            /* Single Order Page for Vendor */
-            add_filter ( 'wc_order_is_editable', array ( $this, 'vendor_single_order_page' ) );
-
             /* Order Item Meta */
             add_action ( 'woocommerce_hidden_order_itemmeta', array ( $this, 'hidden_order_itemmeta' ) );
 
@@ -68,6 +65,8 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
 
             /* Order MetaBoxes */
             add_action ( 'add_meta_boxes', array ( $this, 'add_meta_boxes' ), 30 );
+
+            add_filter( 'yith_wcmv_shop_order_request', array( $this, 'vendor_order_list' ) );
 
             $sync_enabled = get_option ( 'yith_wpv_vendors_option_order_synchronization', 'yes' );
 
@@ -240,7 +239,7 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
                             }
                         }
                     }
-                    
+
                     //Calculate Discount
                     $discount += ( $item[ 'line_subtotal' ] - $item[ 'line_total' ] );
                 }
@@ -1674,6 +1673,49 @@ if ( ! class_exists ( 'YITH_Orders' ) ) {
             }
 
             return $product_by_vendor;
+        }
+
+        /**
+         * Check if the current page is an order details page for vendor
+         *
+         * @param mixed $vendor The vendor object
+         *
+         * @author   Andrea Grillo <andrea.grillo@yithemes.com>
+         * @since    1.6.0
+         * @return   bool
+         */
+        public function is_vendor_order_details_page( $vendor = false ){
+            global $theorder;
+            if( ! $vendor ){
+                $vendor = yith_get_vendor ( 'current', 'user' );
+            }
+            $is_ajax = defined ( 'DOING_AJAX' ) && DOING_AJAX;
+            $is_order_details = is_admin () && 'shop_order' == get_current_screen ()->id;
+
+            return $vendor->is_valid() && $vendor->has_limited_access() && $is_order_details && ! $is_ajax;
+        }
+
+        /**
+         * Only show vendor's order
+         *
+         * @author Andrea Grillo <andrea.grillo@yithemes.com>
+         *
+         * @param  arr $request Current request
+         *
+         * @return arr          Modified request
+         * @since  1.6
+         */
+        public function vendor_order_list( $query ) {
+            $vendor = yith_get_vendor( 'current', 'user' );
+
+            if ( is_admin() && $vendor->is_valid() && $vendor->has_limited_access() ) {
+                //Remove Exclude Order Comments to vendor admin dashboard
+                remove_filter( 'comments_clauses', array( 'WC_Comments', 'exclude_order_comments' ), 10, 1 );
+
+                $query['post__in']      = $vendor->get_orders( 'suborder' );
+                $query['author']        = absint( $vendor->get_owner() );
+            }
+            return $query;
         }
     }
 }

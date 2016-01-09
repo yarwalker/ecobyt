@@ -11,7 +11,8 @@ function icraft_social_icons () {
 		$socio_list .= '<ul class="social">';	
 		foreach ( $services as $service ) :
 			
-			$active[$service] = esc_url( of_get_option ('itrans_social_'.$service) );
+			$active[$service] = esc_url( get_theme_mod('itrans_social_'.$service, of_get_option ('itrans_social_'.$service, '#')) );
+			
 			if ($active[$service]) { 
 				$socio_list .= '<li><a href="'.$active[$service].'" title="'.$service.'" target="_blank"><i class="genericon socico genericon-'.$service.'"></i></a></li>';
 				$siciocount++;
@@ -42,12 +43,32 @@ function icraft_ibanner_slider () {
 	
     for($slideno=1;$slideno<=4;$slideno++){
 			$strret = '';
+			
+			/*
+			$slide_speed = esc_attr( get_theme_mod('itrans_sliderspeed', of_get_option ('itrans_sliderspeed')) );
 			$slide_title = esc_attr(of_get_option ('itrans_slide'.$slideno.'_title', 'Exclusive WooCommerce Features'));
 			$slide_desc = esc_attr(of_get_option ('itrans_slide'.$slideno.'_desc', 'To start setting up i-craft go to appearance &gt; Theme Options. Make sure you have installed recommended plugin &#34;TemplatesNext Toolkit&#34; by going appearance > install plugin.'));
 			$slide_linktext = esc_attr(of_get_option ('itrans_slide'.$slideno.'_linktext', 'Know More'));
-			$slide_linkurl = esc_url(of_get_option ('itrans_slide'.$slideno.'_linkurl', '#'));
+			$slide_linkurl = esc_url(of_get_option ('itrans_slide'.$slideno.'_linkurl', '#'));			
 			$slide_image = of_get_option ('itrans_slide'.$slideno.'_image', get_template_directory_uri() . '/images/slide'.$slideno.'.jpg');
+			*/
 			
+			$slide_speed = esc_attr( get_theme_mod('itrans_sliderspeed')*1000 );
+			$slide_title = esc_attr( get_theme_mod('itrans_slide'.$slideno.'_title', of_get_option ('itrans_slide'.$slideno.'_title', 'Exclusive WooCommerce Features')) );
+			$slide_desc = esc_attr( get_theme_mod('itrans_slide'.$slideno.'_desc', of_get_option ('itrans_slide'.$slideno.'_desc', 'To start setting up i-craft go to appearance &gt; Customize. Make sure you have installed recommended plugin &#34;TemplatesNext Toolkit&#34; by going appearance > install plugin.')) );
+			$slide_linktext = esc_attr( get_theme_mod('itrans_slide'.$slideno.'_linktext', of_get_option ('itrans_slide'.$slideno.'_linktext', 'Know More')) );
+			$slide_linkurl = esc_attr( get_theme_mod('itrans_slide'.$slideno.'_linkurl', of_get_option ('itrans_slide'.$slideno.'_linkurl', 'http://templatesnext.org/icraft/?page_id=783')) );			
+			$slide_image = esc_attr( get_theme_mod('itrans_slide'.$slideno.'_image', of_get_option ('itrans_slide'.$slideno.'_image', get_template_directory_uri() . '/images/slide'.$slideno.'.jpg')) );		
+			
+			
+			$itrans_slogan = get_theme_mod('banner_text', of_get_option('itrans_slogan', ''));
+			
+			
+			/*
+			if (strpos($upload_base_url,'https') !== false && strpos($slide_image,'https') !== true ) {
+				$slide_image = str_replace("http://", "https://", $slide_image );
+			}
+			*/
 			$slider_image_id = icraft_get_attachment_id_from_url( $slide_image );			
 			$slider_resized_image = wp_get_attachment_image( $slider_image_id, "icraft-slider-thumb" );
 			
@@ -78,6 +99,7 @@ function icraft_ibanner_slider () {
 				$strret .= '<h2>'.$slide_title.'</h2>';
 				$strret .= '<p>'.$slide_desc.'</p>';
 				$strret .= '<a href="'.$slide_linkurl.'" class="da-link">'.$slide_linktext.'</a>';
+				
 				$strret .= '</div></div>';
 			}
 			if ($strret !=''){
@@ -87,9 +109,9 @@ function icraft_ibanner_slider () {
 	}
 	
 	$sliderscpeed = "6000";
-	if(of_get_option('itrans_sliderspeed'))
+	if($slide_speed)
 	{
-		$sliderscpeed = esc_attr(of_get_option('itrans_sliderspeed'));
+		$sliderscpeed = esc_attr($slide_speed);
 	}	
 	
 	if(count($arrslidestxt)>0){
@@ -110,9 +132,9 @@ function icraft_ibanner_slider () {
         echo '    <div class="titlebar">';
         echo '        <h1>';
 		
-		if (of_get_option('itrans_slogan')) {
+		if ( $itrans_slogan ) {
 						//bloginfo( 'name' );
-			echo of_get_option('itrans_slogan');
+			echo $itrans_slogan;
 		} 
 		
         echo '        </h1>';

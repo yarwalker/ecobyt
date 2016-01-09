@@ -411,7 +411,7 @@ if (!class_exists('YITH_WooCommerce_Order_Tracking')) {
          */
         public function plugin_fw_loader()
         {
-            if ( !defined('YIT_CORE_PLUGIN')) {
+            if ( !defined('YIT_CORE_PLUGIN') ) {
                 require_once('plugin-fw/yit-plugin.php');
             }
         }

@@ -66,7 +66,7 @@
             <div class="entry-content">
             
 				<?php
-                    if ( of_get_option( 'full_content') )
+                    if ( get_theme_mod('full_content', of_get_option('full_content')) )
                     {
                         the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'i-craft' ) );
                     } else

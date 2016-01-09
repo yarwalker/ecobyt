@@ -894,9 +894,18 @@ if ( !class_exists( 'YITH_Vendors_Admin' ) ) {
          * @use    woocommerce_prevent_admin_access hooks
          */
         public function prevent_admin_access( $prevent_access ) {
+            global $current_user;
             $vendor = yith_get_vendor( 'current', 'user' );
 
-            return $vendor->is_valid() && $vendor->has_limited_access() && $vendor->is_user_admin() ? false : $prevent_access;
+            if( $vendor->is_valid() && $vendor->has_limited_access() && $vendor->is_user_admin() ){
+                $prevent_access = false;
+            }
+
+            elseif( ! $vendor->is_valid() && in_array( YITH_Vendors()->get_role_name(), $current_user->roles ) ){
+                $prevent_access = true;
+            }
+
+            return $prevent_access;
         }
 
         /**

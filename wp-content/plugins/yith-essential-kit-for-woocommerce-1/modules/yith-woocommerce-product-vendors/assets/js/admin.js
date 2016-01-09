@@ -86,7 +86,9 @@
     $('#yith_wpv_vendors_my_account_registration').yith_wpv_option_deps( '#yith_wpv_vendors_my_account_registration_auto_approve', 'checkbox', undefined, false );
     vendor_order_refund.yith_wpv_option_deps( '#yith_wpv_vendors_option_order_synchronization', 'checkbox', undefined, false );
     vendor_order_refund.yith_wpv_option_deps( '#yith_wpv_vendors_option_order_refund_synchronization', 'checkbox', undefined, false );
+    vendor_order_refund.yith_wpv_option_deps( '#yith_wpv_vendors_option_order_hide_customer', 'checkbox', undefined, false );
     $('#yith_vendors_show_gravatar_image').yith_wpv_option_deps( '#yith_vendors_gravatar_image_size', 'select', 'disabled', false );
+    $('#yith_wpv_vendors_option_editor_management').yith_wpv_option_deps( '#yith_wpv_vendors_option_editor_media', 'checkbox', undefined, false );
 
     // Vendor taxonomy table
     var tax_table = $( '#the-list');
@@ -112,7 +114,7 @@
     taxonomy_table_col( tax_table );
 
     // Vendor taxonomy bulk actions
-    if( $body.hasClass( 'taxonomy-yith_shop_vendor' ) ){
+    if( $body.hasClass( 'taxonomy-yith_shop_vendor' ) && typeof yith_vendors != 'undefined' ){
         var bulk_action_1   = $('#bulk-action-selector-top'),
             bulk_action_2   = $('#bulk-action-selector-bottom'),
             action_approve       = '<option value="approve">' + yith_vendors.approve + '</option>',

@@ -5,7 +5,6 @@
  * Date: 18/03/2015
  * Time: 13:53
  */
-
 $args	=	array (
     'label'    => __( 'Tab Settings', 'yith-woocommerce-tab-manager' ),
     'pages'    => 'ywtm_tab', //or array( 'post-type1', 'post-type2')

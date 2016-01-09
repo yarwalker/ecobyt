@@ -57,6 +57,7 @@
     .section .section-title h2 {
         display: table-cell;
         vertical-align: middle;
+        line-height: 24px;
     }
 
     .section-title {
@@ -716,6 +717,58 @@
             </div>
         </div>
     </div>
+    <div class="section section-even clear"style="background: url(<?php echo YITH_WPV_URL ?>assets/images/29-bg.png) no-repeat #fff; background-position: 85% 100%">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_WPV_URL ?>assets/images/29.png" alt="Screenshot"/>
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WPV_URL ?>assets/images/29-icon.png" alt="icon"/>
+                    <h2><?php _e('VENDOR TAXONOMY','yith_wc_product_vendors'); ?></h2>
+                </div>
+                <p>
+                    <?php _e( 'With a specific option, %1$svendor taxonomy slug%2$s becomes customizable according to your needs.','yith_wc_product_vendors' )?>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="section section-odd clear" style="background: url(<?php echo YITH_WPV_URL ?>assets/images/30-bg.png) no-repeat #f1f1f1; background-position: 15% 100%">
+        <div class="landing-container">
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WPV_URL ?>assets/images/30-icon.png" alt="Icon"/>
+                    <h2><?php _e('VENDOR LOGO','yith_wc_product_vendors');?></h2>
+                </div>
+                <p>
+                    <?php _e( 'Vendors might wish to show their own logo, but not all vendors have one. This is the reason why you can give them the chance to add it or not in their shop pages. If you prefer to have an uniform style in your site, you can also choose to hide all your vendors’ logos.','yith_wc_product_vendors' )?>
+                </p>
+                <p>
+                    <?php _e( ' If you prefer to have an suniform style in your site, you can also choose to hide all your vendors’ logos.','yith_wc_product_vendors' )?>
+                </p>
+            </div>
+            <div class="col-1">
+                <img src="<?php echo YITH_WPV_URL ?>assets/images/30.png" alt="Screenshot"/>
+            </div>
+        </div>
+    </div>
+    <div class="section section-even clear"style="background: url(<?php echo YITH_WPV_URL ?>assets/images/31-bg.png) no-repeat #fff; background-position: 85% 100%">
+        <div class="landing-container">
+            <div class="col-1">
+                <img src="<?php echo YITH_WPV_URL ?>assets/images/31.png" alt="Screenshot"/>
+            </div>
+            <div class="col-2">
+                <div class="section-title">
+                    <img src="<?php echo YITH_WPV_URL ?>assets/images/31-icon.png" alt="icon"/>
+                    <h2><?php _e('USERS PRIVACY','yith_wc_product_vendors'); ?></h2>
+                </div>
+                <p>
+                    <?php _e( 'Protect your customers\' privacy! With a specific option of the plugin, you can hide "Customer" search section in order detail page, so that other vendors won’t have access to your customers email addresses.','yith_wc_product_vendors' )?>
+                </p>
+            </div>
+        </div>
+    </div>
+
     <div class="section section-cta section-odd">
         <div class="landing-container">
             <div class="premium-cta">

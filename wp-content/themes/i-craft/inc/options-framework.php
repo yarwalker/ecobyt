@@ -25,7 +25,7 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-
+/*
 // Don't load if optionsframework_init is already defined
 if (is_admin() && ! function_exists( 'optionsframework_init' ) ) :
 
@@ -43,7 +43,7 @@ function optionsframework_init() {
 	require get_template_directory() . '/inc/includes/class-options-media-uploader.php';
 	require get_template_directory() . '/inc/includes/class-options-sanitization.php';
 	
-	/**/
+
 	// Instantiate the options page.
 	$options_framework_admin = new Options_Framework_Admin;
 	$options_framework_admin->init();
@@ -57,7 +57,7 @@ function optionsframework_init() {
 add_action( 'init', 'optionsframework_init', 20 );
 
 endif;
-
+*/
 
 /**
  * Helper function to return the theme option value.

@@ -84,7 +84,7 @@ select#tax-input-yith_shop_vendor {
 
 .taxonomy-yith_shop_vendor table.wp-list-table .column-name,
 .taxonomy-yith_shop_vendor table.wp-list-table .column-description,
-.taxonomy-yith_shop_vendor table.wp-list-table .column-slug
+.taxonomy-yith_shop_vendor table.wp-list-table .column-slug,
 .taxonomy-yith_shop_vendor table.wp-list-table .column-name,
 .taxonomy-yith_shop_vendor table.wp-list-table .check-column,
 .taxonomy-yith_shop_vendor table.wp-list-table .enable_sales,
@@ -359,7 +359,7 @@ input#yith_vendor_vat.valid {
  }
 
 #vendor-details .form-field textarea:not(.wp-editor-area){
-    width: 40%;
+    width: 55%;
     resize: none;
 }
 
@@ -490,4 +490,10 @@ span.vacation-date-field {
 
 .vendor_limited_access #adminmenu #menu-posts-shop_order .wp-submenu li:last-child {
     display: none;
+}
+
+@media (max-width: 1200px) {
+    #vendor-details .form-field textarea:not(.wp-editor-area) {
+        width: auto;
+    }
 }

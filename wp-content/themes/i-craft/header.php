@@ -10,40 +10,14 @@
 ?>
 <?php
 
+$hide_cart = get_theme_mod('hide_cart', of_get_option('hide_cart'));
 
-$background = of_get_option('itrans_background_style');
-$hide_cart = of_get_option('hide_cart');
-$bg_cover = of_get_option('bg_cover', '1');
-				
-$bacground_style = '';
+$top_phone = '';
+$top_email = '';
 
-if ($background) {
-	
-   	if ($background['color']) {		
-		$bacground_style .= 'background-color: '.$background['color'].'; ' ;
-   	}
-		
-   	if ($background['image']) {		
-		$bacground_style .= 'background-image: URL('.$background['image'].'); ' ;
-		foreach ($background as $i=>$param)
-		{
-        	$bacground_style .= 'background-'.$i .': '.$param.'; ' ;
-        }
-   	}
-	
-	if( $bg_cover == '1' )
-	{
-		$bacground_style .= 'background-size: cover;' ;			
-	}
-	
-	
-} else
-{
-	$bacground_style .= 'background-image: URL('.get_template_directory_uri() . '/images/bg7.jpg'.'); ' ;
-	$bacground_style .= 'background-repeat: no-repeat;' ;
-	$bacground_style .= 'background-size: cover;' ;	
-	$bacground_style .= 'background-attachment: fixed;' ;		
-}
+$top_phone = esc_attr(get_theme_mod('top_phone', of_get_option('top_bar_phone', '1-000-123-4567')));
+$top_email = esc_attr(get_theme_mod('top_email', of_get_option('top_bar_email', 'email@i-create.com')));
+$icraft_logo = get_theme_mod( 'logo', of_get_option('itrans_logo_image', get_template_directory_uri() . '/images/logo.png') );
 
 global $post; 
 
@@ -69,31 +43,30 @@ global $post;
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 	<?php wp_head(); ?>
-	
 </head>
-<body <?php body_class(); ?> style="<?php echo $bacground_style; ?>">
+<body <?php body_class(); ?>>
 	<div id="page" class="hfeed site">
     	
-        <?php if ( of_get_option('top_bar_phone') || of_get_option('top_bar_email') || icraft_social_icons() ) : ?>
+        <?php if ( $top_phone || $top_email || icraft_social_icons() ) : ?>
     	<div id="utilitybar" class="utilitybar">
         	<div class="ubarinnerwrap">
                 <div class="socialicons">
                     <?php echo icraft_social_icons(); ?>
                 </div>
-                <?php if ( of_get_option('top_bar_phone') ) : ?>
+                <?php if ( $top_phone ) : ?>
                 <div class="topphone">
                     <i class="topbarico genericon genericon-phone"></i>
-                    <?php if ( of_get_option('top_bar_phone') ) : ?>
-                        <?php _e('Позвоните нам : ','i-craft'); ?> <?php echo esc_attr(of_get_option('top_bar_phone')); ?>
+                    <?php if ( $top_phone ) : ?>
+                        <?php _e('Call us : ','i-craft'); ?> <?php echo $top_phone; ?>
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>
                 
-                <?php if ( of_get_option('top_bar_email') ) : ?>
+                <?php if ( $top_email ) : ?>
                 <div class="topphone">
                     <i class="topbarico genericon genericon-mail"></i>
-                    <?php if (of_get_option('top_bar_email') ) : ?>
-                        <?php _e('Напишите нам : ','i-craft'); ?> <?php echo sanitize_email(of_get_option('top_bar_email')); ?>
+                    <?php if ( $top_email ) : ?>
+                        <?php _e('Mail us : ','i-craft'); ?> <?php echo sanitize_email($top_email); ?>
                     <?php endif; ?>
                 </div>
                 <?php endif; ?>                
@@ -104,9 +77,9 @@ global $post;
         <div class="headerwrap">
             <header id="masthead" class="site-header" role="banner">
          		<div class="headerinnerwrap">
-					<?php if (of_get_option('itrans_logo_image')) : ?>
+					<?php if ($icraft_logo) : ?>
                         <a class="home-link" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home">
-                            <span><img src="<?php echo of_get_option('itrans_logo_image'); ?>" alt="<?php bloginfo( 'name' ); ?>" /></span>
+                            <span><img src="<?php echo $icraft_logo; ?>" alt="<?php bloginfo( 'name' ); ?>" /></span>
                         </a>
                     <?php else : ?>
                         <span id="site-titlendesc">
@@ -168,12 +141,10 @@ global $post;
 		$other_slider = rwmb_meta('icraft_other_slider');
 		$custom_title = rwmb_meta('icraft_customtitle');
 		
-		$hide_front_slider = of_get_option('hide_front_slider');
-		$other_front_slider = of_get_option('other_front_slider');
-		$itrans_slogan = of_get_option('itrans_slogan');
-		
+		$hide_front_slider = get_theme_mod('slider_stat', of_get_option('hide_front_slider', ''));
+		$other_front_slider = htmlspecialchars_decode(get_theme_mod('other_front_slider', of_get_option('other_front_slider')));
+		$itrans_slogan = get_theme_mod('banner_text', of_get_option('itrans_slogan', ''));
 
-		//echo '<div style="position: relative;">'. do_shortcode('[tx_slider items="4" category_id="" delay="8000" class=""]').'</div>';
 		
 		if($other_slider) :
 		?>
