@@ -237,25 +237,25 @@ global $post;
 
 					/**/
             	?>
-				<?php 
-				
-					$hide_breadcrumb = rwmb_meta('icraft_hide_breadcrumb');
-					
-                    if(function_exists('bcn_display') && !$hide_breadcrumb )
-                    {
-				?>
-                	<div class="nx-breadcrumb">
-                <?php
-                        bcn_display();
-				?>
-                	</div>
-                <?php		
-                    } 
-                ?>               
+
             	
             </div>
         </div>
-        
-		<?php endif; ?>
+            <?php
+
+            $hide_breadcrumb = rwmb_meta('icraft_hide_breadcrumb');
+
+            if(function_exists('bcn_display') && !$hide_breadcrumb )
+            {
+                ?>
+                <div class="nx-breadcrumb">
+                    <?php
+                    bcn_display();
+                    ?>
+                </div>
+                <?php
+            }
+            ?>
+        <?php endif; ?>
 		<div id="main" class="site-main">
 
