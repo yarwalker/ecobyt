@@ -4951,6 +4951,10 @@ nav.navigation .nav-links a:visited {
     /*padding-top: 0px;*/
 }
 
+.shop_attributes { line-height: 1em; }
+.shop_attributes span p { margin-bottom: 14px; }
+.attr_title { font-weight: 600; margin-right: 8px; float: left; }
+
 .woocommerce #content div.product div.images, .woocommerce div.product div.images, .woocommerce-page #content div.product div.images, .woocommerce-page div.product div.images {
 	float: left;
 	width: 30% !important;

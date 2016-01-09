@@ -781,6 +781,10 @@ function wplift_remove_image_sizes( $sizes) {
 }
 add_filter('intermediate_image_sizes_advanced', 'wplift_remove_image_sizes');*/
 
+/**
+ * Изменяем порядок отображения блоков информации на странице товара
+ */
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10);
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20);
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 20);
@@ -790,4 +794,18 @@ function HB_woocommerce_template_dimensions(){ //Добавим функцию �
 	$product->list_attributes();
 }
 add_action( 'woocommerce_single_product_summary', 'HB_woocommerce_template_dimensions', 15); //Поставим панельку после краткого описания
+
+/**
+ * Remove product tabs
+ *
+ */
+function woo_remove_product_tab($tabs) {
+
+	//unset( $tabs['description'] );              // Remove the description tab
+	//unset( $tabs['reviews'] );                     // Remove the reviews tab
+	unset( $tabs['additional_information'] );      // Remove the additional information tab
+
+	return $tabs;
+}
+add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tab', 98);
 ?>

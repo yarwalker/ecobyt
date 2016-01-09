@@ -19,22 +19,22 @@ $attributes = $product->get_attributes();
 
 ob_start();
 ?>
-<table class="shop_attributes">
+<div class="shop_attributes">
 
 	<?php if ( $product->enable_dimensions_display() ) : ?>
 
 		<?php if ( $product->has_weight() ) : $has_row = true; ?>
-			<tr class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
-				<th><?php _e( 'Weight', 'i-craft' ) ?></th>
-				<td class="product_weight"><?php echo $product->get_weight() . ' ' . esc_attr( get_option( 'woocommerce_weight_unit' ) ); ?></td>
-			</tr>
+			<div class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
+				<span class="attr_title"><?php _e( 'Weight', 'i-craft' ) ?>&colon;</span>
+				<span class="product_weight"><?php echo $product->get_weight() . ' ' . esc_attr( get_option( 'woocommerce_weight_unit' ) ); ?></span>
+			</div>
 		<?php endif; ?>
 
 		<?php if ( $product->has_dimensions() ) : $has_row = true; ?>
-			<tr class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
-				<th><?php _e( 'Dimensions', 'i-craft' ) ?></th>
-				<td class="product_dimensions"><?php echo $product->get_dimensions(); ?></td>
-			</tr>
+			<div class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
+				<span class="attr_title"><?php _e( 'Dimensions', 'i-craft' ) ?>&colon;</span>
+				<span class="product_dimensions"><?php echo $product->get_dimensions(); ?></span>
+			</div>
 		<?php endif; ?>
 
 	<?php endif; ?>
@@ -46,9 +46,9 @@ ob_start();
 			$has_row = true;
 		}
 		?>
-		<tr class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
-			<th><?php echo wc_attribute_label( $attribute['name'] ); ?></th>
-			<td><?php
+		<div class="<?php if ( ( $alt = $alt * -1 ) == 1 ) echo 'alt'; ?>">
+			<span class="attr_title"><?php echo wc_attribute_label( $attribute['name'] ); ?>&colon;</span>
+			<span><?php
 				if ( $attribute['is_taxonomy'] ) {
 
 					$values = wc_get_product_terms( $product->id, $attribute['name'], array( 'fields' => 'names' ) );
@@ -61,11 +61,11 @@ ob_start();
 					echo apply_filters( 'woocommerce_attribute', wpautop( wptexturize( implode( ', ', $values ) ) ), $attribute, $values );
 
 				}
-			?></td>
-		</tr>
+			?></span>
+		</div>
 	<?php endforeach; ?>
 	
-</table>
+</div>
 <?php
 if ( $has_row ) {
 	echo ob_get_clean();
